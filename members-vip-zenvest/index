@@ -1,1 +1,802 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Zenvest | Área de Membros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDITAR AQUI — TOKENS DE MARCA
+     ============================================================ */
+  :root{
+    --bg: #09090B;
+    --bg-elevated: #0D0D10;
+    --card: #18181B;
+    --card-hover: #1D1D21;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --text: #FFFFFF;
+    --text-dim: #A1A1AA;
+    --text-faint: #6B6B72;
+    --green: #22C55E;
+    --green-dim: rgba(34,197,94,0.14);
+    --green-glow: rgba(34,197,94,0.35);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --shadow-soft: 0 8px 30px rgba(0,0,0,0.35);
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ overflow-x:hidden; width:100%; }
+  body{
+    background:
+      radial-gradient(circle at 15% -10%, rgba(34,197,94,0.08), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(34,197,94,0.05), transparent 35%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  ::selection{ background:var(--green-dim); color:var(--green); }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,0.12); border-radius:10px; }
+  ::-webkit-scrollbar-thumb:hover{ background:rgba(255,255,255,0.2); }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  h1,h2,h3,h4{ font-family:'Space Grotesk', 'Inter', sans-serif; letter-spacing:-0.02em; }
+
+  :focus-visible{ outline:2px solid var(--green); outline-offset:2px; border-radius:6px; }
+
+  /* ============================================================
+     LOADING SCREEN
+     ============================================================ */
+  #loading{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--bg);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:28px;
+    transition:opacity .6s var(--ease), visibility .6s var(--ease);
+  }
+  #loading.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+
+  .load-mark{
+    width:64px; height:64px; border-radius:18px;
+    background:linear-gradient(155deg, #1c1c20, #0f0f11);
+    border:1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .load-mark::before{
+    content:'';
+    position:absolute; inset:-2px; border-radius:20px;
+    background:conic-gradient(from 0deg, transparent, var(--green), transparent 30%);
+    animation:spin 1.6s linear infinite;
+    z-index:-1;
+    opacity:.9;
+  }
+  .load-mark svg{ width:28px; height:28px; position:relative; z-index:1; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .load-word{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:20px;
+    letter-spacing:0.01em;
+    opacity:0; animation:riseIn .7s var(--ease) .15s forwards;
+  }
+  .load-sub{
+    font-size:13.5px; color:var(--text-faint);
+    opacity:0; animation:riseIn .7s var(--ease) .35s forwards;
+    display:flex; align-items:center; gap:8px;
+  }
+  .load-dots span{
+    display:inline-block; width:4px; height:4px; border-radius:50%;
+    background:var(--text-faint); margin-left:2px;
+    animation:dotPulse 1.2s ease-in-out infinite;
+  }
+  .load-dots span:nth-child(2){ animation-delay:.15s; }
+  .load-dots span:nth-child(3){ animation-delay:.3s; }
+  @keyframes dotPulse{ 0%,80%,100%{ opacity:.25; transform:scale(.8);} 40%{ opacity:1; transform:scale(1);} }
+
+  .load-bar{
+    width:180px; height:2px; border-radius:2px; background:rgba(255,255,255,0.08);
+    overflow:hidden; opacity:0; animation:riseIn .7s var(--ease) .45s forwards;
+  }
+  .load-bar-fill{
+    height:100%; width:0%; background:linear-gradient(90deg, var(--green), #4ade80);
+    border-radius:2px; animation:loadFill 1.7s var(--ease) .5s forwards;
+  }
+  @keyframes loadFill{ to{ width:100%; } }
+  @keyframes riseIn{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:translateY(0);} }
+
+  /* ============================================================
+     APP SHELL
+     ============================================================ */
+  #app{ display:none; min-height:100vh; }
+  #app.ready{ display:flex; }
+
+  .sidebar{
+    width:264px; flex-shrink:0;
+    background:var(--bg-elevated);
+    border-right:1px solid var(--border);
+    display:flex; flex-direction:column;
+    padding:24px 16px;
+    position:sticky; top:0; height:100vh;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    padding:8px 10px 26px 10px;
+  }
+  .brand-mark{
+    width:34px; height:34px; border-radius:10px;
+    background:linear-gradient(155deg, #1c1c20, #101012);
+    border:1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .brand-mark svg{ width:18px; height:18px; }
+  .brand-name{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:16.5px; }
+  .brand-tag{ font-size:10.5px; color:var(--text-faint); letter-spacing:0.06em; text-transform:uppercase; margin-top:1px; }
+
+  .nav{ display:flex; flex-direction:column; gap:3px; margin-top:6px; }
+  .nav-item{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 14px; border-radius:12px;
+    color:var(--text-dim); font-size:14.5px; font-weight:500;
+    background:transparent; border:1px solid transparent;
+    transition:background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .nav-item svg{ width:18px; height:18px; opacity:.85; flex-shrink:0; }
+  .nav-item:hover{ background:rgba(255,255,255,0.04); color:var(--text); }
+  .nav-item.active{
+    background:var(--green-dim); color:var(--green);
+    border-color:rgba(34,197,94,0.25);
+  }
+  .nav-item.active svg{ opacity:1; }
+
+  .sidebar-footer{
+    margin-top:auto; padding:14px; border-radius:14px;
+    background:var(--card); border:1px solid var(--border);
+  }
+  .sidebar-footer-title{ font-size:13px; font-weight:600; }
+  .sidebar-footer-sub{ font-size:12px; color:var(--text-faint); margin-top:2px; line-height:1.4; }
+  .status-dot{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); display:inline-block; margin-right:6px; }
+
+  .main{ flex:1; min-width:0; }
+  .topbar{
+    display:none;
+    align-items:center; justify-content:space-between;
+    padding:16px 20px;
+    border-bottom:1px solid var(--border);
+    background:rgba(9,9,11,0.85);
+    backdrop-filter:blur(14px);
+    position:sticky; top:0; z-index:50;
+  }
+  .hamburger{
+    width:38px; height:38px; border-radius:10px;
+    background:var(--card); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:4px;
+  }
+  .hamburger span{ width:16px; height:1.6px; background:var(--text); border-radius:2px; transition:transform .3s var(--ease), opacity .3s var(--ease); }
+  .hamburger.open span:nth-child(1){ transform:translateY(5.6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity:0; }
+  .hamburger.open span:nth-child(3){ transform:translateY(-5.6px) rotate(-45deg); }
+
+  .content{
+    padding:40px 44px 80px;
+    max-width:1180px;
+  }
+
+  .page{ display:none; animation:fadeUp .5s var(--ease); }
+  .page.active{ display:block; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+
+  .page-header{ margin-bottom:30px; }
+  .eyebrow{
+    font-size:12px; font-weight:600; color:var(--green); letter-spacing:0.08em; text-transform:uppercase;
+    display:flex; align-items:center; gap:6px; margin-bottom:10px;
+  }
+  .page-title{ font-size:30px; font-weight:600; }
+  .page-sub{ color:var(--text-dim); font-size:14.5px; margin-top:8px; max-width:520px; line-height:1.55; }
+
+  /* ============================================================
+     CARDS — grid geral
+     ============================================================ */
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:22px;
+    position:relative; overflow:hidden;
+    transition:transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+    opacity:0; transform:translateY(14px);
+    animation:cardIn .55s var(--ease) forwards;
+  }
+  @keyframes cardIn{ to{ opacity:1; transform:translateY(0); } }
+  .card::before{
+    content:''; position:absolute; inset:0; border-radius:inherit; padding:1px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), transparent 40%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    pointer-events:none;
+  }
+  .card:hover{ transform:translateY(-3px); border-color:var(--border-strong); background:var(--card-hover); }
+
+  .card-icon{
+    width:38px; height:38px; border-radius:11px;
+    background:var(--green-dim); border:1px solid rgba(34,197,94,0.22);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .card-icon svg{ width:19px; height:19px; color:var(--green); }
+  .card-title{ font-size:15.5px; font-weight:600; margin-bottom:6px; }
+  .card-text{ font-size:13.5px; color:var(--text-dim); line-height:1.55; }
+  .card-link{
+    margin-top:16px; display:inline-flex; align-items:center; gap:6px;
+    font-size:13.5px; font-weight:600; color:var(--green);
+  }
+  .card-link svg{ width:14px; height:14px; transition:transform .25s var(--ease); }
+  .card:hover .card-link svg{ transform:translateX(3px); }
+
+  .progress-track{ height:5px; background:rgba(255,255,255,0.07); border-radius:6px; overflow:hidden; margin-top:14px; }
+  .progress-fill{ height:100%; background:linear-gradient(90deg, var(--green), #4ade80); border-radius:6px; }
+
+  /* ============================================================
+     AULAS
+     ============================================================ */
+  .module-block{ margin-bottom:34px; }
+  .module-head{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .module-badge{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:13px;
+    color:var(--green); background:var(--green-dim); border:1px solid rgba(34,197,94,0.22);
+    padding:4px 10px; border-radius:8px;
+  }
+  .module-title{ font-size:17px; font-weight:600; }
+  .module-count{ font-size:12.5px; color:var(--text-faint); margin-left:auto; }
+
+  .lesson-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px; }
+  .lesson-card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
+    overflow:hidden; display:flex; flex-direction:column;
+    transition:transform .3s var(--ease), border-color .3s var(--ease);
+    opacity:0; transform:translateY(14px); animation:cardIn .55s var(--ease) forwards;
+  }
+  .lesson-card:hover{ transform:translateY(-3px); border-color:var(--border-strong); }
+  .lesson-thumb{
+    aspect-ratio:16/9; position:relative;
+    background:linear-gradient(150deg, #1b1b1f, #0e0e10);
+    display:flex; align-items:center; justify-content:center;
+    border-bottom:1px solid var(--border);
+    overflow:hidden;
+  }
+  .lesson-thumb::after{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 20%, rgba(34,197,94,0.14), transparent 55%);
+  }
+  .lesson-num{
+    font-family:'Space Grotesk', sans-serif; font-size:34px; font-weight:700;
+    color:rgba(255,255,255,0.09); position:absolute; top:10px; left:14px; z-index:1;
+  }
+  .play-badge{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,0.06);
+    border:1px solid var(--border-strong); backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center; z-index:2;
+    transition:background .25s var(--ease), transform .25s var(--ease);
+  }
+  .lesson-card:hover .play-badge{ background:var(--green); transform:scale(1.06); }
+  .play-badge svg{ width:16px; height:16px; margin-left:2px; }
+  .lesson-card:hover .play-badge svg{ color:#09090B; }
+
+  .lesson-body{ padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .lesson-tag{ font-size:11.5px; color:var(--text-faint); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; }
+  .lesson-title{ font-size:15px; font-weight:600; }
+  .lesson-desc{ font-size:13px; color:var(--text-dim); line-height:1.5; flex:1; }
+  .btn-watch{
+    margin-top:6px; width:100%;
+    background:var(--green); color:#09090B; border:none;
+    padding:10px 14px; border-radius:10px; font-weight:600; font-size:13.5px;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    transition:filter .2s var(--ease), transform .2s var(--ease);
+  }
+  .btn-watch:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  .btn-watch svg{ width:14px; height:14px; }
+
+  /* ============================================================
+     MODAL
+     ============================================================ */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(5,5,6,0.75); backdrop-filter:blur(6px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+    opacity:0; transition:opacity .3s var(--ease);
+  }
+  .modal-overlay.show{ display:flex; }
+  .modal-overlay.visible{ opacity:1; }
+  .modal-box{
+    width:100%; max-width:840px;
+    background:var(--card); border:1px solid var(--border-strong);
+    border-radius:var(--radius-lg); overflow:hidden;
+    box-shadow:var(--shadow-soft);
+    transform:scale(.94) translateY(14px); opacity:0;
+    transition:transform .35s var(--ease), opacity .35s var(--ease);
+  }
+  .modal-overlay.visible .modal-box{ transform:scale(1) translateY(0); opacity:1; }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); }
+  .modal-head-title{ font-size:14.5px; font-weight:600; }
+  .modal-close{
+    width:30px; height:30px; border-radius:8px; background:rgba(255,255,255,0.05);
+    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+    color:var(--text-dim); transition:background .2s var(--ease), color .2s var(--ease);
+  }
+  .modal-close:hover{ background:rgba(255,255,255,0.1); color:var(--text); }
+  .modal-video{ aspect-ratio:16/9; background:#000; }
+  .modal-video iframe{ width:100%; height:100%; border:0; display:block; }
+
+  /* ============================================================
+     LINKS & SUPORTE — cards de contato
+     ============================================================ */
+  .btn-full{
+    margin-top:16px; width:100%; padding:11px 14px; border-radius:10px;
+    background:rgba(255,255,255,0.05); border:1px solid var(--border-strong);
+    color:var(--text); font-weight:600; font-size:13.5px;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    transition:background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+  }
+  .btn-full:hover{ background:var(--green); color:#09090B; border-color:var(--green); transform:translateY(-1px); }
+  .btn-full svg{ width:14px; height:14px; }
+
+  /* ============================================================
+     MOBILE
+     ============================================================ */
+  .mobile-nav{
+    position:fixed; inset:0; z-index:900;
+    background:rgba(6,6,7,0.6); backdrop-filter:blur(4px);
+    opacity:0; visibility:hidden; transition:opacity .35s var(--ease), visibility .35s var(--ease);
+  }
+  .mobile-nav.open{ opacity:1; visibility:visible; }
+  .mobile-panel{
+    position:absolute; top:0; left:0; height:100%; width:82%; max-width:300px;
+    background:var(--bg-elevated); border-right:1px solid var(--border);
+    padding:22px 16px; display:flex; flex-direction:column;
+    transform:translateX(-100%); transition:transform .4s var(--ease);
+  }
+  .mobile-nav.open .mobile-panel{ transform:translateX(0); }
+
+  @media (max-width:900px){
+    .sidebar{ display:none; }
+    .topbar{ display:flex; }
+    .content{ padding:26px 18px 60px; }
+    .page-title{ font-size:24px; }
+    .grid{ grid-template-columns:1fr; }
+    .lesson-grid{ grid-template-columns:1fr; }
+  }
+  @media (min-width:901px){
+    .mobile-nav{ display:none !important; }
+  }
+  @media (max-width:480px){
+    .content{ padding:20px 14px 60px; }
+    .modal-head-title{ font-size:13px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TELA DE CARREGAMENTO
+     ============================================================ -->
+<div id="loading">
+  <div class="load-mark">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 17L10 7L14 13L20 5" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="load-word">Zenvest</div>
+  <div class="load-sub">Preparando sua área de membros<span class="load-dots"><span></span><span></span><span></span></span></div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
+</div>
+
+<!-- ============================================================
+     PLATAFORMA
+     ============================================================ -->
+<div id="app">
+
+  <!-- MENU MOBILE -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-panel">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 17L10 7L14 13L20 5" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="brand-name">Zenvest</div>
+          <div class="brand-tag">Área de membros</div>
+        </div>
+      </div>
+      <nav class="nav" id="navMobile"></nav>
+      <div class="sidebar-footer" style="margin-top:24px;">
+        <div class="sidebar-footer-title"><span class="status-dot"></span>Acesso ativo</div>
+        <div class="sidebar-footer-sub">Sua assinatura Zenvest está em dia.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR DESKTOP -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 17L10 7L14 13L20 5" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">Zenvest</div>
+        <div class="brand-tag">Área de membros</div>
+      </div>
+    </div>
+    <nav class="nav" id="navDesktop"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-title"><span class="status-dot"></span>Acesso ativo</div>
+      <div class="sidebar-footer-sub">Sua assinatura Zenvest está em dia.</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 17L10 7L14 13L20 5" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="brand-name">Zenvest</div>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="content">
+
+      <!-- ================= INÍCIO ================= -->
+      <section class="page active" id="page-inicio">
+        <div class="page-header">
+          <div class="eyebrow">Painel</div>
+          <!-- EDITAR AQUI: título da home -->
+          <h1 class="page-title">Bem-vindo à sua área de membros</h1>
+          <p class="page-sub">Acompanhe seu progresso, acesse as aulas e fique por dentro das novidades do Zenvest.</p>
+        </div>
+
+        <div class="grid" id="homeGrid"></div>
+      </section>
+
+      <!-- ================= AULAS ================= -->
+      <section class="page" id="page-aulas">
+        <div class="page-header">
+          <div class="eyebrow">Conteúdo</div>
+          <h1 class="page-title">Aulas</h1>
+          <p class="page-sub">Assista às aulas na ordem para aproveitar melhor o método Zenvest.</p>
+        </div>
+        <div id="modulesWrap"></div>
+      </section>
+
+      <!-- ================= LINKS ================= -->
+      <section class="page" id="page-links">
+        <div class="page-header">
+          <div class="eyebrow">Recursos</div>
+          <h1 class="page-title">Links</h1>
+          <p class="page-sub">Todos os canais oficiais e materiais do Zenvest em um só lugar.</p>
+        </div>
+        <div class="grid" id="linksGrid"></div>
+      </section>
+
+      <!-- ================= SUPORTE ================= -->
+      <section class="page" id="page-suporte">
+        <div class="page-header">
+          <div class="eyebrow">Ajuda</div>
+          <h1 class="page-title">Suporte</h1>
+          <p class="page-sub">Nosso time está pronto para te ajudar. Escolha o canal que preferir.</p>
+        </div>
+        <div class="grid" id="supportGrid"></div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE VÍDEO -->
+<div class="modal-overlay" id="videoModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title" id="modalTitle">Aula</div>
+      <button class="modal-close" id="modalClose" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-video">
+      <iframe id="modalIframe" src="" title="Player da aula" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ÍCONES (inline SVG helper)
+   ============================================================ */
+const ICONS = {
+  home: '<svg viewBox="0 0 24 24" fill="none"><path d="M4 11L12 4L20 11V19.5C20 20.05 19.55 20.5 19 20.5H15V14H9V20.5H5C4.45 20.5 4 20.05 4 19.5V11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 8H21" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="6" r="0.6" fill="currentColor"/></svg>',
+  link: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 15L15 9M10 6.5L11 5.5C12.5 4 15 4 16.5 5.5C18 7 18 9.5 16.5 11L15.5 12M14 17.5L13 18.5C11.5 20 9 20 7.5 18.5C6 17 6 14.5 7.5 13L8.5 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  help: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M9.7 9.3C9.9 8 11 7.2 12.2 7.4C13.4 7.6 14.2 8.7 14 9.9C13.8 11 12.6 11.3 12.2 12.3C12.05 12.65 12 13 12 13.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="16.2" r="0.9" fill="currentColor"/></svg>',
+  continue: '<svg viewBox="0 0 24 24" fill="none"><path d="M8 5.5L18 12L8 18.5V5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+  bell: '<svg viewBox="0 0 24 24" fill="none"><path d="M6.5 10.5C6.5 7.5 8.8 5 12 5C15.2 5 17.5 7.5 17.5 10.5V14L19 16.5H5L6.5 14V10.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 18.5C10.4 19.4 11.1 20 12 20C12.9 20 13.6 19.4 14 18.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  bolt: '<svg viewBox="0 0 24 24" fill="none"><path d="M13 4L6 13.5H11.5L11 20L18 10H12.5L13 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+  users: '<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8.5" r="2.8" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 18C4.2 15.2 6.4 13.5 9 13.5C11.6 13.5 13.8 15.2 14.5 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15 8.8C16.1 9 17 10 17 11.2C17 12.3 16.3 13.2 15.3 13.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16 14.2C17.9 14.7 19.3 16.1 19.8 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24" fill="none"><path d="M6.5 17.5L4.5 20L7.2 19.1C8.6 19.9 10.2 20.3 12 20.3C16.6 20.3 20.3 16.6 20.3 12C20.3 7.4 16.6 3.7 12 3.7C7.4 3.7 3.7 7.4 3.7 12C3.7 13.9 4.3 15.6 5.3 17L6.5 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 10C9 12.5 11 14.5 13.5 14.5C13.9 14.5 14.2 14 14 13.6L13.3 12.4C13.1 12.1 12.7 12 12.4 12.2L12 12.4C11.3 12 10.6 11.3 10.3 10.7L10.5 10.4C10.7 10.1 10.6 9.7 10.3 9.5L9.1 8.7C8.7 8.5 8.2 8.8 8.2 9.2C8.2 9.5 9 10 9 10Z" fill="currentColor"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 7L12 13L19.5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  insta: '<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4.5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.6"/><circle cx="16.6" cy="7.4" r="0.9" fill="currentColor"/></svg>',
+  globe: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M4 12H20M12 3.8C14 6 15 8.9 15 12C15 15.1 14 18 12 20.2C10 18 9 15.1 9 12C9 8.9 10 6 12 3.8Z" stroke="currentColor" stroke-width="1.6"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="none"><path d="M7 3.5H14L18 7.5V20C18 20.55 17.55 21 17 21H7C6.45 21 6 20.55 6 20V4.5C6 3.95 6.45 3.5 7 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.5H15M9 16H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  chevron: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+};
+
+/* ============================================================
+   EDITAR AQUI — NAVEGAÇÃO
+   ============================================================ */
+const NAV_ITEMS = [
+  { id:'inicio', label:'Início', icon: ICONS.home },
+  { id:'aulas', label:'Aulas', icon: ICONS.play },
+  { id:'links', label:'Links', icon: ICONS.link },
+  { id:'suporte', label:'Suporte', icon: ICONS.help },
+];
+
+/* ============================================================
+   EDITAR AQUI — CARDS DA HOME
+   ============================================================ */
+const HOME_CARDS = [
+  {
+    icon: ICONS.continue, title:'Continue aprendendo',
+    text:'Retome de onde parou. Você concluiu 2 de 6 aulas do curso.',
+    progress: 33, linkLabel:'Ir para a aula', goto:'aulas'
+  },
+  {
+    icon: ICONS.bell, title:'Últimas atualizações',
+    text:'Nova aula liberada no Módulo 2 e material de apoio atualizado.',
+    linkLabel:'Ver novidades', goto:'aulas'
+  },
+  {
+    icon: ICONS.bolt, title:'Acesso rápido',
+    text:'Grupo do WhatsApp, comunidade e materiais reunidos em um só lugar.',
+    linkLabel:'Ver links', goto:'links'
+  },
+  {
+    icon: ICONS.users, title:'Comunidade',
+    text:'Troque experiências com outros membros e tire dúvidas em tempo real.',
+    linkLabel:'Entrar na comunidade', goto:'links'
+  },
+  {
+    icon: ICONS.help, title:'Suporte',
+    text:'Precisa de ajuda? Nosso time responde em até 24 horas úteis.',
+    linkLabel:'Falar com o suporte', goto:'suporte'
+  },
+];
+
+/* ============================================================
+   EDITAR AQUI — MÓDULOS E AULAS
+   Troque "videoId" pelo ID do vídeo do YouTube (o código após v=)
+   ============================================================ */
+const MODULES = [
+  {
+    title:'Módulo 1 — Fundamentos',
+    lessons:[
+      { num:'01', title:'Introdução ao método Zenvest', desc:'Entenda como funciona a jornada e o que esperar dos próximos módulos.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
+      { num:'02', title:'Mentalidade do investidor', desc:'Os princípios que separam quem investe bem de quem investe no impulso.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
+      { num:'03', title:'Organizando suas finanças', desc:'Como estruturar sua base financeira antes de dar o próximo passo.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
+    ]
+  },
+  {
+    title:'Módulo 2 — Estratégia',
+    lessons:[
+      { num:'04', title:'Montando sua carteira', desc:'Critérios práticos para distribuir seus investimentos com segurança.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
+      { num:'05', title:'Gestão de risco', desc:'Como proteger seu patrimônio nos momentos de instabilidade do mercado.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
+      { num:'06', title:'Próximos passos', desc:'O plano de ação para colocar tudo o que você aprendeu em prática.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
+    ]
+  },
+];
+
+/* ============================================================
+   EDITAR AQUI — LINKS
+   ============================================================ */
+const LINKS = [
+  { icon: ICONS.whatsapp, title:'Grupo do WhatsApp', text:'Entre no grupo oficial para avisos e conteúdos exclusivos.', label:'Acessar grupo', url:'https://wa.me/5500000000000' },
+  { icon: ICONS.users, title:'Comunidade', text:'Participe das discussões e conecte-se com outros membros.', label:'Entrar na comunidade', url:'https://exemplo.com/comunidade' },
+  { icon: ICONS.insta, title:'Instagram', text:'Acompanhe bastidores, dicas rápidas e novidades do Zenvest.', label:'Seguir no Instagram', url:'https://instagram.com/zenvest' },
+  { icon: ICONS.globe, title:'Site oficial', text:'Conheça mais sobre o Zenvest e nossos produtos.', label:'Visitar site', url:'https://zenvest.exemplo.com' },
+  { icon: ICONS.doc, title:'Materiais', text:'Baixe planilhas, e-books e materiais de apoio do curso.', label:'Ver materiais', url:'https://exemplo.com/materiais' },
+];
+
+/* ============================================================
+   EDITAR AQUI — SUPORTE
+   ============================================================ */
+const SUPPORT = [
+  { icon: ICONS.whatsapp, title:'WhatsApp', text:'Fale diretamente com nosso time de suporte pelo WhatsApp.', label:'Chamar no WhatsApp', url:'https://wa.me/5500000000000' },
+  { icon: ICONS.mail, title:'E-mail', text:'Envie sua dúvida e responderemos em até 24 horas úteis.', label:'Enviar e-mail', url:'mailto:suporte@zenvest.exemplo.com' },
+  { icon: ICONS.insta, title:'Instagram', text:'Envie uma mensagem direta pelo nosso perfil oficial.', label:'Chamar no Instagram', url:'https://instagram.com/zenvest' },
+  { icon: ICONS.users, title:'Grupo da comunidade', text:'Tire dúvidas com outros membros e com nossa equipe.', label:'Acessar grupo', url:'https://exemplo.com/comunidade' },
+];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function renderNav(){
+  [document.getElementById('navDesktop'), document.getElementById('navMobile')].forEach(container=>{
+    container.innerHTML = NAV_ITEMS.map(item=>`
+      <button class="nav-item ${item.id==='inicio'?'active':''}" data-page="${item.id}">
+        ${item.icon}<span>${item.label}</span>
+      </button>
+    `).join('');
+  });
+}
+
+function renderHome(){
+  document.getElementById('homeGrid').innerHTML = HOME_CARDS.map((c,i)=>`
+    <div class="card" style="animation-delay:${i*0.06}s">
+      <div class="card-icon">${c.icon}</div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-text">${c.text}</div>
+      ${c.progress!==undefined ? `<div class="progress-track"><div class="progress-fill" style="width:${c.progress}%"></div></div>` : ''}
+      <a class="card-link" href="#" data-goto="${c.goto}">${c.linkLabel} ${ICONS.chevron}</a>
+    </div>
+  `).join('');
+}
+
+function renderModules(){
+  document.getElementById('modulesWrap').innerHTML = MODULES.map((mod, mi)=>`
+    <div class="module-block">
+      <div class="module-head">
+        <span class="module-badge">Módulo ${mi+1}</span>
+        <h2 class="module-title">${mod.title.split('—')[1] ? mod.title.split('—')[1].trim() : mod.title}</h2>
+        <span class="module-count">${mod.lessons.length} aulas</span>
+      </div>
+      <div class="lesson-grid">
+        ${mod.lessons.map((l,li)=>`
+          <div class="lesson-card" style="animation-delay:${li*0.06}s">
+            <div class="lesson-thumb">
+              <span class="lesson-num">${l.num}</span>
+              <div class="play-badge">${ICONS.continue}</div>
+            </div>
+            <div class="lesson-body">
+              <span class="lesson-tag">Aula ${l.num}</span>
+              <h3 class="lesson-title">${l.title}</h3>
+              <p class="lesson-desc">${l.desc}</p>
+              <button class="btn-watch" data-video="${l.videoId}" data-title="${l.title}">
+                ${ICONS.play} Assistir aula
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderLinks(){
+  document.getElementById('linksGrid').innerHTML = LINKS.map((c,i)=>`
+    <div class="card" style="animation-delay:${i*0.06}s">
+      <div class="card-icon">${c.icon}</div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-text">${c.text}</div>
+      <a class="btn-full" href="${c.url}" target="_blank" rel="noopener">${c.label} ${ICONS.link}</a>
+    </div>
+  `).join('');
+}
+
+function renderSupport(){
+  document.getElementById('supportGrid').innerHTML = SUPPORT.map((c,i)=>`
+    <div class="card" style="animation-delay:${i*0.06}s">
+      <div class="card-icon">${c.icon}</div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-text">${c.text}</div>
+      <a class="btn-full" href="${c.url}" target="_blank" rel="noopener">${c.label} ${ICONS.link}</a>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   NAVEGAÇÃO ENTRE ABAS
+   ============================================================ */
+function goToPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+pageId).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    n.classList.toggle('active', n.dataset.page===pageId);
+  });
+  closeMobileNav();
+  document.querySelector('.content').scrollTop = 0;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.addEventListener('click', (e)=>{
+  const navBtn = e.target.closest('.nav-item');
+  if(navBtn){ e.preventDefault(); goToPage(navBtn.dataset.page); return; }
+
+  const gotoLink = e.target.closest('[data-goto]');
+  if(gotoLink){ e.preventDefault(); goToPage(gotoLink.dataset.goto); return; }
+
+  const watchBtn = e.target.closest('.btn-watch');
+  if(watchBtn){ openModal(watchBtn.dataset.video, watchBtn.dataset.title); return; }
+});
+
+/* ============================================================
+   MENU MOBILE
+   ============================================================ */
+const mobileNav = document.getElementById('mobileNav');
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+hamburgerBtn.addEventListener('click', ()=>{
+  mobileNav.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open');
+});
+mobileNav.addEventListener('click', (e)=>{
+  if(e.target === mobileNav) closeMobileNav();
+});
+function closeMobileNav(){
+  mobileNav.classList.remove('open');
+  hamburgerBtn.classList.remove('open');
+}
+
+/* ============================================================
+   MODAL DE VÍDEO (YouTube Embed, sem sugestões)
+   ============================================================ */
+const videoModal = document.getElementById('videoModal');
+const modalIframe = document.getElementById('modalIframe');
+const modalTitle = document.getElementById('modalTitle');
+
+function openModal(videoId, title){
+  modalTitle.textContent = title || 'Aula';
+  // rel=0 evita vídeos de outros canais nas sugestões finais
+  modalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+  videoModal.classList.add('show');
+  requestAnimationFrame(()=> videoModal.classList.add('visible'));
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  videoModal.classList.remove('visible');
+  document.body.style.overflow = '';
+  setTimeout(()=>{
+    videoModal.classList.remove('show');
+    modalIframe.src = '';
+  }, 300);
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+videoModal.addEventListener('click', (e)=>{ if(e.target === videoModal) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+renderNav();
+renderHome();
+renderModules();
+renderLinks();
+renderSupport();
+
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    document.getElementById('loading').classList.add('hide');
+    document.getElementById('app').classList.add('ready');
+  }, 2000);
+});
+</script>
+</body>
+</html>
