@@ -2,522 +2,1006 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oral Clin Campinas | Clínica Odontológica no Centro de Campinas</title>
-<meta name="description" content="Oral Clin Campinas: clínica odontológica no Centro de Campinas/SP. Clínica geral, ortodontia, implantes, próteses, endodontia e clareamento. Atendimento humanizado, 4,6★ no Google. Agende pelo WhatsApp.">
-<meta name="theme-color" content="#0E3A44">
-
-<!-- Google Fonts -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Zenvest — Saiba para onde vai o seu dinheiro</title>
+<meta name="description" content="Zenvest: o app que organiza suas finanças, cria metas e constrói sua reserva de emergência em minutos por dia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05070d;
+    --bg-2:#070b16;
+    --surface:#0d1326;
+    --surface-2:#121a33;
+    --surface-3:#171f3d;
+    --border:rgba(255,255,255,.08);
+    --border-soft:rgba(255,255,255,.05);
+    --blue:#3169ff;
+    --blue-light:#5c8bff;
+    --blue-pale:#9db6ff;
+    --blue-deep:#122566;
+    --green:#1fd88f;
+    --green-dim:#12a06b;
+    --white:#f4f7ff;
+    --gray:#98a3c4;
+    --gray-dim:#5c688f;
+    --radius:20px;
+    --radius-sm:12px;
+    --shadow-blue: 0 20px 60px -20px rgba(49,105,255,.45);
+    --ff-display:'Sora',sans-serif;
+    --ff-body:'Inter',sans-serif;
+  }
 
-<link rel="stylesheet" href="style.css">
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden;width:100%;}
+  body{
+    font-family:var(--ff-body);
+    background:var(--bg);
+    color:var(--white);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width:100%;
+    line-height:1.5;
+  }
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  .container{
+    width:100%;
+    max-width:1220px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  @media (max-width:420px){
+    .container{padding:0 16px;}
+  }
+  section{position:relative;}
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--ff-body);
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue-pale);
+    background:rgba(49,105,255,.1);
+    border:1px solid rgba(49,105,255,.25);
+    padding:7px 16px 7px 12px;
+    border-radius:999px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1,h2,h3{font-family:var(--ff-display);font-weight:700;letter-spacing:-0.02em;color:var(--white);}
+  .section-head{max-width:640px;margin:0 auto 52px;text-align:center;}
+  .section-head h2{font-size:clamp(28px,4vw,42px);margin-top:16px;line-height:1.15;}
+  .section-head p{color:var(--gray);font-size:16px;margin-top:14px;}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-family:var(--ff-body);
+    font-weight:700;
+    font-size:15.5px;
+    padding:16px 30px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background .25s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--blue-light),var(--blue) 55%,#1a3fce);
+    color:#fff;
+    box-shadow:var(--shadow-blue);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 26px 70px -18px rgba(49,105,255,.65);}
+  .btn-ghost{
+    background:rgba(255,255,255,.04);
+    color:var(--white);
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.08);}
+  .btn-blue-outline{
+    background:rgba(49,105,255,.12);
+    color:var(--blue-pale);
+    border:1.5px solid var(--blue);
+  }
+  .btn-blue-outline:hover{background:rgba(49,105,255,.22);transform:translateY(-3px);}
+  .btn-block{width:100%;}
+  .btn svg{width:18px;height:18px;flex-shrink:0;}
+
+  /* NAV */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:16px 0;
+    background:rgba(5,7,13,.55);
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav .container{display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:700;font-size:19px;letter-spacing:-0.01em;}
+  .brand-mark{
+    width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px -4px rgba(49,105,255,.6);
+  }
+  .brand-mark svg{width:17px;height:17px;}
+  .nav-links{display:flex;gap:32px;font-size:14.5px;color:var(--gray);font-weight:500;}
+  .nav-links a:hover{color:var(--white);}
+  .nav .btn{padding:11px 22px;font-size:14px;}
+  .nav-cta-wrap{display:flex;align-items:center;gap:20px;}
+  @media (max-width:780px){
+    .nav-links{display:none;}
+    .nav .container{padding:0 18px;}
+  }
+  @media (max-width:420px){
+    .brand{font-size:16px;gap:8px;}
+    .brand-mark{width:28px;height:28px;}
+    .nav .btn{padding:9px 16px;font-size:12.5px;}
+  }
+
+  /* HERO */
+  .hero{
+    padding:150px 0 90px;
+    background:
+      radial-gradient(900px 480px at 82% -10%, rgba(49,105,255,.28), transparent 60%),
+      radial-gradient(700px 500px at -10% 30%, rgba(31,216,143,.08), transparent 55%),
+      var(--bg);
+    overflow:hidden;
+  }
+  .hero .container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-copy h1{
+    font-size:clamp(34px,4.6vw,58px);
+    line-height:1.06;
+    margin:20px 0 18px;
+  }
+  .hero-copy h1 .accent{
+    background:linear-gradient(100deg,var(--blue-light),var(--green) 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-copy p.sub{
+    font-size:17.5px;color:var(--gray);max-width:460px;margin-bottom:32px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:34px;}
+  .trust-row{display:flex;align-items:center;gap:14px;color:var(--gray-dim);font-size:13.5px;}
+  .trust-row .avatars{display:flex;}
+  .trust-row .avatars span{
+    width:28px;height:28px;border-radius:50%;border:2px solid var(--bg);
+    margin-left:-8px;font-size:10px;font-weight:700;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--ff-display);
+  }
+  .trust-row .avatars span:first-child{margin-left:0;}
+  .trust-row .avatars span svg{width:60%;height:60%;}
+  .t-avatar svg{width:56%;height:56%;}
+
+  /* Hero visual composition */
+  .hero-visual{position:relative;height:520px;}
+  .glow-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;z-index:0;pointer-events:none;}
+  .glow-blob.b1{width:380px;height:380px;background:var(--blue);top:-40px;right:10px;}
+  .glow-blob.b2{width:260px;height:260px;background:var(--green);opacity:.18;bottom:-30px;left:0;}
+
+  .device-stage{position:relative;width:100%;height:100%;z-index:2;transform-style:preserve-3d;}
+
+  .laptop{
+    position:absolute;left:0;top:70px;width:78%;
+    transform:perspective(1400px) rotateY(8deg) rotateX(2deg);
+    filter:drop-shadow(0 40px 60px rgba(0,0,0,.55));
+  }
+  .laptop-screen{
+    background:#060912;
+    border:6px solid #12162a;
+    border-radius:14px 14px 4px 4px;
+    aspect-ratio:16/10.2;
+    padding:14px;
+    position:relative;
+    overflow:hidden;
+  }
+  .laptop-base{
+    height:11px;background:linear-gradient(#1a2036,#0c0f1c);
+    border-radius:0 0 10px 10px;
+    box-shadow:0 6px 14px rgba(0,0,0,.5);
+  }
+  .screen-topbar{display:flex;gap:5px;margin-bottom:10px;}
+  .screen-topbar span{width:7px;height:7px;border-radius:50%;background:#232a45;}
+  .screen-grid{display:grid;grid-template-columns:1.3fr 2fr;gap:9px;height:calc(100% - 20px);}
+  .screen-side{background:#0b0f20;border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:7px;}
+  .screen-side .sd{height:8px;border-radius:4px;background:#1b2137;}
+  .screen-side .sd.active{background:linear-gradient(90deg,var(--blue),var(--blue-light));width:70%;}
+  .screen-main{display:flex;flex-direction:column;gap:8px;}
+  .kpi-row{display:flex;gap:8px;}
+  .kpi{flex:1;background:#0b0f20;border-radius:8px;padding:8px;border:1px solid #161c30;}
+  .kpi .lab{font-size:6px;color:#5c688f;text-transform:uppercase;letter-spacing:.06em;font-weight:700;}
+  .kpi .val{font-size:11px;font-weight:700;color:#fff;margin-top:3px;font-family:var(--ff-display);}
+  .kpi .val.g{color:var(--green);}
+  .chart-panel{flex:1;background:#0b0f20;border-radius:8px;padding:10px;position:relative;overflow:hidden;}
+  .chart-bars{display:flex;align-items:flex-end;gap:5px;height:100%;}
+  .chart-bars i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--blue-light),var(--blue-deep));}
+  .chart-bars i:nth-child(4){background:linear-gradient(180deg,var(--green),var(--green-dim));}
+
+  .phone{
+    position:absolute;right:-6px;bottom:-10px;width:172px;
+    transform:perspective(1200px) rotateY(-10deg) rotateX(1deg);
+    filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));
+    z-index:3;
+  }
+  .phone-body{
+    background:#080b16;border:5px solid #171d33;border-radius:30px;
+    aspect-ratio:9/18.5;padding:10px 8px;position:relative;overflow:hidden;
+  }
+  .phone-notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:44%;height:14px;background:#171d33;border-radius:0 0 10px 10px;z-index:2;}
+  .phone-bal{margin-top:22px;text-align:center;}
+  .phone-bal .lab{font-size:7px;color:#5c688f;text-transform:uppercase;letter-spacing:.06em;font-weight:700;}
+  .phone-bal .amt{font-family:var(--ff-display);font-size:15px;font-weight:700;color:#fff;margin-top:2px;}
+  .phone-bal .amt span{color:var(--green);}
+  .phone-ring{margin:12px auto 0;width:58px;height:58px;border-radius:50%;
+    background:conic-gradient(var(--green) 0 68%, #171d33 0 100%);
+    display:flex;align-items:center;justify-content:center;}
+  .phone-ring b{width:44px;height:44px;border-radius:50%;background:#080b16;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:var(--ff-display);font-weight:700;}
+  .phone-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+  .phone-list div{display:flex;align-items:center;gap:6px;background:#0e1224;border-radius:7px;padding:5px 6px;}
+  .phone-list i{width:14px;height:14px;border-radius:5px;background:var(--blue);flex-shrink:0;}
+  .phone-list b{flex:1;height:5px;border-radius:3px;background:#1e2540;}
+
+  .float-card{
+    position:absolute;
+    background:rgba(13,19,38,.75);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(14px);
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;align-items:center;gap:10px;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.55);
+    animation:float 6s ease-in-out infinite;
+    z-index:4;
+  }
+  .float-card .ic{width:34px;height:34px;border-radius:10px;background:rgba(31,216,143,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .float-card .ic svg{width:17px;height:17px;color:var(--green);}
+  .float-card .tx b{display:block;font-family:var(--ff-display);font-size:13.5px;color:#fff;}
+  .float-card .tx span{font-size:10.5px;color:var(--gray);}
+  .float-1{top:26px;left:-8px;animation-delay:0s;}
+  .float-2{bottom:96px;right:20px;animation-delay:1.2s;}
+  .float-2 .ic{background:rgba(49,105,255,.16);}
+  .float-2 .ic svg{color:var(--blue-light);}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  @media (max-width:960px){
+    .hero{padding:130px 0 70px;}
+    .hero .container{grid-template-columns:1fr;text-align:center;}
+    .hero-copy p.sub{margin-left:auto;margin-right:auto;}
+    .hero-actions{justify-content:center;}
+    .trust-row{justify-content:center;flex-wrap:wrap;text-align:left;}
+    .hero-visual{height:380px;margin-top:26px;}
+    .laptop{width:84%;left:50%;transform:translateX(-58%) perspective(1400px) rotateY(8deg) rotateX(2deg);}
+    .phone{width:122px;right:2%;}
+    .float-card{padding:8px 10px;}
+    .float-card .tx b{font-size:12px;}
+    .float-card .tx span{font-size:9.5px;}
+    .float-1{left:0;top:10px;}
+    .float-2{right:4px;bottom:70px;}
+  }
+  @media (max-width:520px){
+    .hero-visual{height:320px;}
+    .laptop{width:82%;}
+    .phone{width:100px;bottom:0;}
+    .float-card{gap:7px;}
+    .float-card .ic{width:28px;height:28px;}
+    .float-card .ic svg{width:14px;height:14px;}
+  }
+
+  /* VIDEO */
+  .video-section{padding:70px 0 90px;background:var(--bg);}
+  .video-frame-wrap{
+    max-width:340px;margin:0 auto;
+    border-radius:26px;
+    padding:8px;
+    background:linear-gradient(160deg,rgba(49,105,255,.5),rgba(255,255,255,.04) 40%, rgba(31,216,143,.25));
+    box-shadow:0 30px 80px -20px rgba(49,105,255,.35);
+  }
+  .video-frame{
+    border-radius:20px;
+    overflow:hidden;
+    aspect-ratio:9/16;
+    background:#000;
+    position:relative;
+  }
+  .video-frame iframe{width:100%;height:100%;border:0;display:block;}
+
+  /* BENEFITS */
+  .benefits{padding:90px 0;background:linear-gradient(180deg,var(--bg),var(--bg-2));}
+  .benefits-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  .b-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px 24px;
+    transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  }
+  .b-card:hover{transform:translateY(-6px);border-color:rgba(49,105,255,.4);background:var(--surface-2);}
+  .b-icon{
+    width:46px;height:46px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(49,105,255,.25),rgba(49,105,255,.06));
+    border:1px solid rgba(49,105,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+  }
+  .b-icon svg{width:22px;height:22px;color:var(--blue-light);}
+  .b-card h3{font-size:17px;margin-bottom:8px;}
+  .b-card p{font-size:14.5px;color:var(--gray);}
+  @media (max-width:900px){.benefits-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.benefits-grid{grid-template-columns:1fr;}}
+
+  /* DASHBOARD SHOWCASE */
+  .app-showcase{padding:100px 0;background:var(--bg-2);position:relative;overflow:hidden;}
+  .app-showcase::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(600px 400px at 50% 0%,rgba(49,105,255,.14),transparent 60%);
+  }
+  .screens-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1;
+  }
+  .screen-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    transition:transform .3s ease,border-color .3s ease;
+  }
+  .screen-card:hover{transform:translateY(-5px);border-color:rgba(49,105,255,.35);}
+  .screen-card .sc-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+  .screen-card .sc-head .dotc{width:7px;height:7px;border-radius:50%;background:var(--blue-light);}
+  .screen-card .sc-head span{font-size:12.5px;font-weight:700;font-family:var(--ff-display);color:var(--gray);text-transform:uppercase;letter-spacing:.04em;}
+  .screen-card .sc-body{padding:16px;height:150px;}
+
+  .mock-dash .kpi-row{margin-bottom:10px;}
+  .mock-goals .goal-item{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .goal-ring{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:conic-gradient(var(--green) 0 var(--p,50%), #171f3d 0 100%);display:flex;align-items:center;justify-content:center;}
+  .goal-ring b{width:24px;height:24px;background:var(--surface);border-radius:50%;}
+  .goal-item .gt{flex:1;}
+  .goal-item .gt b{display:block;font-size:12px;color:#fff;}
+  .goal-item .gt span{font-size:10.5px;color:var(--gray-dim);}
+
+  .mock-cat .cat-row{display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+  .cat-dot{width:10px;height:10px;border-radius:4px;flex-shrink:0;}
+  .cat-row .cbar{flex:1;height:6px;border-radius:4px;background:#171f3d;overflow:hidden;}
+  .cat-row .cbar i{display:block;height:100%;border-radius:4px;}
+  .cat-row span{font-size:10.5px;color:var(--gray);width:36px;text-align:right;}
+
+  .mock-moves .move-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .move-ic{width:28px;height:28px;border-radius:8px;background:var(--surface-2);flex-shrink:0;}
+  .move-row .mt{flex:1;}
+  .move-row .mt b{display:block;font-size:11.5px;color:#fff;}
+  .move-row .mt span{font-size:10px;color:var(--gray-dim);}
+  .move-row .mv{font-size:12px;font-weight:700;font-family:var(--ff-display);}
+  .move-row .mv.neg{color:var(--gray);}
+  .move-row .mv.pos{color:var(--green);}
+
+  .mock-reserve{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;}
+  .reserve-ring{width:88px;height:88px;border-radius:50%;background:conic-gradient(var(--green) 0 62%, #171f3d 0 100%);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .reserve-ring b{width:66px;height:66px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:15px;}
+  .mock-reserve span{font-size:11px;color:var(--gray);}
+
+  .mock-profile{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:8px;}
+  .avatar-circ{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:16px;}
+  .mock-profile .pname{font-size:12.5px;font-weight:700;color:#fff;}
+  .mock-profile .ptag{font-size:10.5px;color:var(--green);background:rgba(31,216,143,.1);padding:3px 10px;border-radius:999px;}
+
+  @media (max-width:900px){.screens-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.screens-grid{grid-template-columns:1fr;}}
+
+  /* HOW IT WORKS */
+  .how{padding:100px 0;background:var(--bg);}
+  .how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;}
+  .how-steps::before{
+    content:'';position:absolute;top:34px;left:14%;right:14%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--border),transparent);
+    z-index:0;
+  }
+  .step{position:relative;z-index:1;text-align:center;padding:0 12px;}
+  .step-num{
+    width:68px;height:68px;border-radius:50%;margin:0 auto 22px;
+    background:var(--surface);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--ff-display);font-weight:800;font-size:22px;
+    background-image:linear-gradient(135deg,rgba(49,105,255,.18),transparent);
+  }
+  .step h3{font-size:18px;margin-bottom:8px;}
+  .step p{font-size:14.5px;color:var(--gray);max-width:230px;margin:0 auto;}
+  @media (max-width:760px){.how-steps{grid-template-columns:1fr;gap:44px;}.how-steps::before{display:none;}}
+
+  /* STATS */
+  .stats{padding:70px 0;background:linear-gradient(180deg,var(--bg-2),var(--bg));border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .stats .container{display:flex;justify-content:center;align-items:center;gap:70px;flex-wrap:wrap;text-align:center;}
+  @media (max-width:600px){.stats .container{gap:36px;}}
+  .stat-num{
+    font-family:var(--ff-display);font-weight:800;
+    font-size:clamp(38px,5vw,54px);
+    background:linear-gradient(100deg,var(--white),var(--blue-pale));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .stat-lab{color:var(--gray);font-size:14px;margin-top:6px;}
+
+  /* TESTIMONIALS */
+  .testimonials{padding:100px 0;background:var(--bg);overflow:hidden;}
+  .marquee-wrap{position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .marquee-track{display:flex;gap:20px;width:max-content;animation:marquee 34s linear infinite;}
+  .marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .t-card{
+    width:320px;flex-shrink:0;
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;
+  }
+  .t-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .t-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:14px;color:#fff;flex-shrink:0;}
+  .t-name{font-size:14.5px;font-weight:700;color:#fff;}
+  .t-stars{color:#ffb238;font-size:12px;letter-spacing:2px;margin-top:2px;}
+  .t-card p{font-size:14px;color:var(--gray);line-height:1.6;}
+
+  /* PRICING */
+  .pricing{padding:110px 0 100px;background:linear-gradient(180deg,var(--bg),#080c1a 40%,var(--bg));position:relative;}
+  .pricing::before{content:'';position:absolute;top:120px;left:50%;transform:translateX(-50%);width:520px;height:520px;background:radial-gradient(circle,rgba(49,105,255,.28),transparent 70%);filter:blur(10px);pointer-events:none;}
+  .plans-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:center;
+  }
+  .plan{
+    background:var(--surface);border:1px solid var(--border);border-radius:22px;
+    padding:34px 28px;display:flex;flex-direction:column;
+  }
+  .plan .p-name{font-size:14px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;}
+  .plan .p-price{display:flex;align-items:baseline;gap:4px;margin-bottom:6px;}
+  .plan .p-price .cur{font-size:16px;color:var(--gray);font-weight:600;}
+  .plan .p-price .num{font-family:var(--ff-display);font-size:38px;font-weight:800;color:#fff;}
+  .plan .p-cycle{font-size:13px;color:var(--gray-dim);margin-bottom:24px;}
+  .plan .p-feats{margin-bottom:26px;flex:1;}
+  .plan .p-feats li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--gray);margin-bottom:11px;}
+  .plan .p-feats li svg{width:15px;height:15px;color:var(--green);flex-shrink:0;}
+  .plan.featured{
+    background:linear-gradient(165deg,#132456,var(--surface) 60%);
+    border:1px solid rgba(49,105,255,.5);
+    transform:scale(1.08);
+    box-shadow:0 30px 80px -20px rgba(49,105,255,.5);
+    position:relative;
+  }
+  .plan.featured .badge{
+    position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,#ffcf5c,#ff9d3d);
+    color:#3a2200;font-weight:800;font-size:12px;
+    padding:7px 18px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 8px 20px -4px rgba(255,160,60,.5);
+  }
+  .plan.featured .p-price .num{font-size:44px;}
+  @media (max-width:900px){
+    .plans-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto;}
+    .plan.featured{transform:scale(1);order:-1;}
+  }
+
+  /* GUARANTEE */
+  .guarantee{padding:90px 0;background:var(--bg-2);}
+  .g-box{
+    max-width:820px;margin:0 auto;
+    background:var(--surface);border:1px solid var(--border);border-radius:24px;
+    padding:48px;display:flex;align-items:center;gap:36px;
+  }
+  .g-icon{
+    width:88px;height:88px;border-radius:50%;flex-shrink:0;
+    background:radial-gradient(circle,rgba(31,216,143,.18),transparent 70%);
+    border:1px solid rgba(31,216,143,.35);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .g-icon svg{width:38px;height:38px;color:var(--green);}
+  .g-box h3{font-size:22px;margin-bottom:8px;}
+  .g-box p{color:var(--gray);font-size:14.5px;}
+  @media (max-width:700px){.g-box{flex-direction:column;text-align:center;padding:36px 26px;}}
+
+  /* FINAL CTA */
+  .final-cta{
+    padding:110px 0;text-align:center;position:relative;overflow:hidden;
+    background:radial-gradient(700px 400px at 50% 100%,rgba(49,105,255,.3),transparent 70%),var(--bg);
+  }
+  .final-cta h2{font-size:clamp(30px,5vw,48px);max-width:640px;margin:0 auto 16px;}
+  .final-cta p{color:var(--gray);font-size:16.5px;margin-bottom:38px;}
+  .final-cta .btn-primary{padding:20px 44px;font-size:17px;}
+
+  /* FOOTER */
+  footer{padding:44px 0;border-top:1px solid var(--border-soft);background:var(--bg);}
+  footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer .f-links{display:flex;gap:26px;font-size:13.5px;color:var(--gray-dim);}
+  footer .f-links a:hover{color:var(--gray);}
+  footer .f-copy{font-size:12.5px;color:var(--gray-dim);}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  }
+</style>
 </head>
 <body>
 
-<!-- ============ SPRITE DE ÍCONES (SVG interno, sem dependências externas) ============ -->
-<svg style="display:none" aria-hidden="true">
-  <symbol id="icon-tooth" viewBox="0 0 24 24"><path d="M12 3c-1.7 0-2.7.9-3.5.9C7.6 3.9 6.6 3 5 3.6 3 4.4 2.6 7 3.1 9.4c.4 2 1.4 3.6 1.9 5.6.4 1.7.5 4.2 1.8 5 .9.6 1.6-.4 1.9-1.6.3-1.2.4-3 1.3-3s1 1.8 1.3 3c.3 1.2 1 2.2 1.9 1.6 1.3-.8 1.4-3.3 1.8-5 .5-2 1.5-3.6 1.9-5.6.5-2.4.1-5-1.9-5.8-1.6-.6-2.6.3-3.5.3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M17 14.5c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C9.3 9 8.8 7.8 8.6 7.3c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z" fill="none" stroke="currentColor" stroke-width="0"/><path d="M12 3C7 3 3 7 3 12c0 1.7.5 3.3 1.3 4.7L3 21l4.5-1.2C8.8 20.5 10.3 21 12 21c5 0 9-4 9-9s-4-9-9-9z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M17 14.5c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C9.3 9 8.8 7.8 8.6 7.3c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.9c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 22s7-7.4 7-12.5A7 7 0 1 0 5 9.5C5 14.6 12 22 12 22z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="12" cy="9.3" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
-  <symbol id="icon-check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8L12 3.5z" fill="currentColor"/></symbol>
-  <symbol id="icon-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M15.5 14.3c2.6.4 4.5 2.6 4.5 5.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
-  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 7.5V12l3.2 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.8-3 7.9-7 9.5-4-1.6-7-4.7-7-9.5V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="icon-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="icon-quote" viewBox="0 0 24 24"><path d="M7 8c-2 0-3.5 1.6-3.5 4S5 16 7 16c.3 0 .5 0 .8-.1C7.3 17.6 6 18.8 4.3 19.2l.5 1.3c3-.6 5.2-2.9 5.2-6.5V12c0-2.2-1.3-4-3-4zm9 0c-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c.3 0 .5 0 .8-.1-.5 1.7-1.8 2.9-3.5 3.3l.5 1.3c3-.6 5.2-2.9 5.2-6.5V12c0-2.2-1.3-4-3-4z" fill="currentColor"/></symbol>
-  <symbol id="icon-implant" viewBox="0 0 24 24"><path d="M12 2v6M9 5h6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 8h8l-1 5-1 8h-4l-1-8-1-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-bridge" viewBox="0 0 24 24"><path d="M4 16h16M4 16v-3a2 2 0 0 1 2-2h1M20 16v-3a2 2 0 0 0-2-2h-1M9 11V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-  <symbol id="icon-braces" viewBox="0 0 24 24"><path d="M4 9c0 5 3.5 9 8 9s8-4 8-9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M6 9v1.4M9 9.6V11M12 9.8v1.4M15 9.6V11M18 9v1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
-  <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6L12 3z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
-  <symbol id="icon-root" viewBox="0 0 24 24"><path d="M9 3h6l-1 6h1l1 4-2 8-2-6-2 6-2-8 1-4h1L9 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
-</svg>
-
-<!-- ============ HEADER ============ -->
-<header class="site-header" id="siteHeader">
-  <div class="container header-inner">
-    <a href="#inicio" class="logo">
-      <svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tooth"/></svg>
-      <span class="logo-text">Oral Clin <em>Campinas</em></span>
-    </a>
-
-    <nav class="nav-desktop" aria-label="Menu principal">
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#tratamentos">Tratamentos</a>
-      <a href="#diferenciais">Diferenciais</a>
-      <a href="#avaliacoes">Avaliações</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contato">Contato</a>
+<header class="nav">
+  <div class="container">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 17L10 11L14 15L20 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H20V12" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      Zenvest
+    </div>
+    <nav class="nav-links">
+      <a href="#beneficios">Benefícios</a>
+      <a href="#app">O app</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#planos">Planos</a>
     </nav>
-
-    <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Oral%20Clin%20Campinas."
-       class="btn btn-whatsapp header-cta" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-      <span>Agendar no WhatsApp</span>
-    </a>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-menu"/></svg>
-    </button>
+    <div class="nav-cta-wrap">
+      <a href="#planos" class="btn btn-primary">Assinar agora</a>
+    </div>
   </div>
-
-  <!-- Menu mobile -->
-  <nav class="nav-mobile" id="mobileNav" aria-label="Menu mobile">
-    <a href="#inicio">Início</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#tratamentos">Tratamentos</a>
-    <a href="#diferenciais">Diferenciais</a>
-    <a href="#avaliacoes">Avaliações</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contato">Contato</a>
-    <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Oral%20Clin%20Campinas."
-       class="btn btn-whatsapp" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-      <span>Agendar no WhatsApp</span>
-    </a>
-  </nav>
 </header>
 
 <main>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="inicio">
-    <div class="hero-arc" aria-hidden="true"></div>
-    <div class="container hero-inner">
-      <div class="hero-copy reveal">
-        <p class="eyebrow">Odontologia no Centro de Campinas</p>
-        <h1>Seu sorriso merece cuidado, <em>tecnologia</em> e atendimento humanizado.</h1>
-        <p class="hero-lead">Na Oral Clin Campinas você encontra uma equipe capacitada, tratamentos odontológicos modernos e um atendimento pensado para a sua saúde bucal e a sua autoestima — no coração de Campinas.</p>
-
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>Controle financeiro inteligente</span>
+        <h1>Pare de perder dinheiro sem saber <span class="accent">para onde ele foi.</span></h1>
+        <p class="sub">O app que organiza seus gastos, cria metas reais e constrói sua reserva de emergência — em poucos minutos por dia.</p>
         <div class="hero-actions">
-          <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Oral%20Clin%20Campinas."
-             class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-            <span>Agendar avaliação no WhatsApp</span>
+          <a href="#planos" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Organizar minhas finanças
           </a>
-          <a href="#tratamentos" class="btn btn-ghost btn-lg">Ver tratamentos</a>
         </div>
-
-        <div class="hero-trust">
-          <div class="hero-rating">
-            <span class="stars" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-            </span>
-            <span><strong>4,6</strong> no Google · <strong>265</strong> avaliações</span>
+        <div class="trust-row">
+          <div class="avatars">
+            <span style="background:linear-gradient(135deg,#4d7dff,#1638a3)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+            <span style="background:linear-gradient(135deg,#3fe3a6,#0d9e6c)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+            <span style="background:linear-gradient(135deg,#9c85ff,#5a3ccf)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+            <span style="background:linear-gradient(135deg,#ffab6e,#e2661a)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
           </div>
-          <div class="hero-quickfacts">
-            <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"/></svg> Centro de Campinas</span>
-            <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-users"/></svg> Equipe capacitada</span>
-            <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-sparkle"/></svg> Tratamentos modernos</span>
+          <span>+8.284 pessoas já organizaram sua vida financeira</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="glow-blob b1"></div>
+        <div class="glow-blob b2"></div>
+        <div class="device-stage" id="deviceStage">
+          <div class="laptop">
+            <div class="laptop-screen">
+              <div class="screen-topbar"><span></span><span></span><span></span></div>
+              <div class="screen-grid">
+                <div class="screen-side">
+                  <div class="sd active"></div>
+                  <div class="sd"></div>
+                  <div class="sd"></div>
+                  <div class="sd"></div>
+                </div>
+                <div class="screen-main">
+                  <div class="kpi-row">
+                    <div class="kpi"><div class="lab">Saldo</div><div class="val g">R$ 6.230</div></div>
+                    <div class="kpi"><div class="lab">Economia</div><div class="val g">+18%</div></div>
+                    <div class="kpi"><div class="lab">Metas</div><div class="val">3 ativas</div></div>
+                  </div>
+                  <div class="chart-panel">
+                    <div class="chart-bars">
+                      <i style="height:35%"></i><i style="height:55%"></i><i style="height:40%"></i>
+                      <i style="height:78%"></i><i style="height:50%"></i><i style="height:64%"></i>
+                      <i style="height:44%"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="laptop-base"></div>
           </div>
-        </div>
-      </div>
 
-      <div class="hero-media reveal" style="--delay:.15s">
-        <div class="hero-image-frame">
-          <!-- SUBSTITUIR: foto profissional de atendimento/sorriso em consultório da Oral Clin -->
-          <div class="img-placeholder" role="img" aria-label="Foto de atendimento odontológico humanizado na Oral Clin Campinas">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tooth"/></svg>
-            <span>Foto do consultório / atendimento</span>
+          <div class="phone">
+            <div class="phone-body">
+              <div class="phone-notch"></div>
+              <div class="phone-bal">
+                <div class="lab">Saldo total</div>
+                <div class="amt">R$ 12.480<span>,50</span></div>
+              </div>
+              <div class="phone-ring"><b>68%</b></div>
+              <div class="phone-list">
+                <div><i></i><b></b></div>
+                <div><i style="background:var(--green)"></i><b></b></div>
+                <div><i></i><b></b></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="hero-card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-shield"/></svg>
-          <div>
-            <strong>Dr. William Freitas Carvalho Munhoz</strong>
-            <span>Responsável Técnico · CRO 144293</span>
+
+          <div class="float-card float-1">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3V21M17 7C17 5 14.7 3.5 12 3.5C9.3 3.5 7 5 7 7.3C7 9.5 9 10.3 12 11C15 11.7 17 12.7 17 15C17 17.3 14.7 18.7 12 18.7C9.3 18.7 7 17.2 7 15.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div class="tx"><b>+ R$ 1.240</b><span>economizados este mês</span></div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BARRA DE CONFIANÇA ============ -->
-  <section class="trust-bar">
-    <div class="container trust-grid">
-      <div class="trust-item reveal">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-users"/></svg>
-        <span>Atendimento humanizado</span>
-      </div>
-      <div class="trust-item reveal" style="--delay:.05s">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-sparkle"/></svg>
-        <span>Tratamentos modernos</span>
-      </div>
-      <div class="trust-item reveal" style="--delay:.1s">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-shield"/></svg>
-        <span>Equipe capacitada</span>
-      </div>
-      <div class="trust-item reveal" style="--delay:.15s">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"/></svg>
-        <span>Localização central em Campinas</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SOBRE ============ -->
-  <section class="section" id="sobre">
-    <div class="container about-grid">
-      <div class="about-media reveal">
-        <!-- SUBSTITUIR: foto institucional da clínica / recepção / equipe -->
-        <div class="img-placeholder img-placeholder--tall" role="img" aria-label="Foto da recepção ou equipe da Oral Clin Campinas">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tooth"/></svg>
-          <span>Foto institucional da clínica</span>
-        </div>
-      </div>
-
-      <div class="about-copy reveal" style="--delay:.1s">
-        <p class="eyebrow">Sobre a clínica</p>
-        <h2>A Oral Clin Campinas cuida do seu sorriso com atenção real</h2>
-        <p>A Oral Clin Campinas é uma clínica odontológica localizada no Centro de Campinas, dedicada a oferecer tratamentos completos com uma equipe capacitada e um atendimento verdadeiramente humanizado. Acreditamos que saúde bucal e autoestima caminham juntas — por isso, cada etapa do seu tratamento é conduzida com cuidado, clareza e respeito ao seu tempo.</p>
-        <p>Combinamos abordagens odontológicas modernas a uma recepção acolhedora, para que você se sinta seguro desde a primeira avaliação até a conclusão do seu tratamento.</p>
-
-        <ul class="about-bullets">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"/></svg> Atendimento humanizado, do primeiro contato ao pós-tratamento</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"/></svg> Equipe capacitada em diferentes áreas da odontologia</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"/></svg> Tratamentos modernos, da clínica geral às próteses</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"/></svg> Localização central, de fácil acesso em Campinas</li>
-        </ul>
-
-        <div class="rt-badge">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-shield"/></svg>
-          <div>
-            <strong>Dr. William Freitas Carvalho Munhoz</strong>
-            <span>Responsável Técnico · CRO 144293</span>
+          <div class="float-card float-2">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/></svg></div>
+            <div class="tx"><b>Meta: Viagem</b><span>68% concluída</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ TRATAMENTOS ============ -->
-  <section class="section section-muted" id="tratamentos">
+  <!-- VIDEO -->
+  <section class="video-section reveal">
+    <div class="container">
+      <div class="video-frame-wrap">
+        <div class="video-frame">
+          <!-- Substitua VIDEO_ID pelo ID do seu YouTube Shorts -->
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&playsinline=1" title="Zenvest" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits" id="beneficios">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow">Nossos tratamentos</p>
-        <h2>Cuidado completo para cada fase do seu sorriso</h2>
-        <p class="section-lead">Conheça as áreas de atuação da Oral Clin Campinas. Clique em um tratamento para saber mais.</p>
+        <span class="eyebrow"><span class="dot"></span>Por que Zenvest</span>
+        <h2>Tudo que sua vida financeira precisa, num só lugar</h2>
       </div>
-
-      <div class="treat-grid">
-
-        <a class="treat-card reveal" href="/implantes.html">
-          <div class="treat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-implant"/></svg></div>
-          <h3>Implantes</h3>
-          <p>Reabilitação de dentes ausentes com soluções modernas, devolvendo função e confiança ao seu sorriso.</p>
-          <span class="treat-link">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg></span>
-        </a>
-
-        <a class="treat-card reveal" style="--delay:.05s" href="/proteses.html">
-          <div class="treat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-bridge"/></svg></div>
-          <h3>Próteses</h3>
-          <p>Próteses dentárias planejadas para restaurar estética e mastigação com naturalidade e conforto.</p>
-          <span class="treat-link">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg></span>
-        </a>
-
-        <a class="treat-card reveal" style="--delay:.1s" href="/ortodontia.html">
-          <div class="treat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-braces"/></svg></div>
-          <h3>Ortodontia</h3>
-          <p>Alinhamento dos dentes com acompanhamento próximo, cuidando da harmonia e da função do seu sorriso.</p>
-          <span class="treat-link">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg></span>
-        </a>
-
-        <a class="treat-card reveal" style="--delay:.15s" href="/clareamento.html">
-          <div class="treat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-sparkle"/></svg></div>
-          <h3>Clareamento</h3>
-          <p>Procedimento estético para um sorriso mais claro, com acompanhamento profissional do início ao fim.</p>
-          <span class="treat-link">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg></span>
-        </a>
-
-        <a class="treat-card reveal" style="--delay:.2s" href="/endodontia.html">
-          <div class="treat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-root"/></svg></div>
-          <h3>Endodontia</h3>
-          <p>Tratamento de canal realizado com cuidado, para aliviar a dor e preservar o seu dente natural.</p>
-          <span class="treat-link">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg></span>
-        </a>
-
-        <a class="treat-card reveal" style="--delay:.25s" href="/clinica-geral.html">
-          <div class="treat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tooth"/></svg></div>
-          <h3>Clínica Geral</h3>
-          <p>Avaliação, prevenção e tratamentos do dia a dia para manter sua saúde bucal sempre em dia.</p>
-          <span class="treat-link">Saiba mais <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg></span>
-        </a>
-
+      <div class="benefits-grid">
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12H15M15 12L11 8M15 12L11 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4H20V20H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3>Gastos organizados sozinhos</h3>
+          <p>Suas despesas são categorizadas automaticamente, sem planilhas.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/></svg></div>
+          <h3>Metas que saem do papel</h3>
+          <p>Defina objetivos reais e acompanhe cada passo até alcançá-los.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L19 6.5V11C19 15.5 16 19 12 20.5C8 19 5 15.5 5 11V6.5L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <h3>Reserva de emergência</h3>
+          <p>Construa sua segurança financeira de forma simples e constante.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19H20M6 19V11M12 19V6M18 19V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Veja para onde vai seu dinheiro</h3>
+          <p>Visualize cada categoria de forma clara, sem esforço.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7H20M4 7V17C4 18.1 4.9 19 6 19H18C19.1 19 20 18.1 20 17V7M4 7L6 4H18L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Categorias inteligentes</h3>
+          <p>O app aprende seus hábitos e refina as categorias com o tempo.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L19 6V11C19 15.5 16 19 12 20.5C8 19 5 15.5 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 12L11.3 13.8L14.8 10.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Segurança de verdade</h3>
+          <p>Criptografia de ponta a ponta em cada informação do seu app.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ POR QUE ESCOLHER ============ -->
-  <section class="section" id="diferenciais">
+  <!-- DASHBOARD / APP SHOWCASE -->
+  <section class="app-showcase" id="app">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow">Por que escolher a Oral Clin</p>
-        <h2>Diferenciais que fazem a diferença no seu tratamento</h2>
+        <span class="eyebrow"><span class="dot"></span>Dentro do app</span>
+        <h2>Um painel completo da sua vida financeira</h2>
+        <p>Dashboard, metas, categorias e reserva — tudo integrado e fácil de entender.</p>
       </div>
 
-      <div class="diff-grid">
-        <div class="diff-card reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-users"/></svg>
-          <h3>Atendimento humanizado</h3>
-          <p>Você é ouvido e orientado com clareza em cada etapa do seu tratamento.</p>
-        </div>
-        <div class="diff-card reveal" style="--delay:.05s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-shield"/></svg>
-          <h3>Equipe capacitada</h3>
-          <p>Profissionais preparados para conduzir seu cuidado com segurança e responsabilidade técnica.</p>
-        </div>
-        <div class="diff-card reveal" style="--delay:.1s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-sparkle"/></svg>
-          <h3>Tratamentos modernos</h3>
-          <p>Procedimentos atuais, da prevenção às reabilitações mais completas.</p>
-        </div>
-        <div class="diff-card reveal" style="--delay:.15s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"/></svg>
-          <h3>Avaliação individualizada</h3>
-          <p>Cada paciente recebe uma avaliação própria, respeitando sua necessidade e seu histórico.</p>
-        </div>
-        <div class="diff-card reveal" style="--delay:.2s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"/></svg>
-          <h3>Localização central</h3>
-          <p>No Centro de Campinas, com fácil acesso para quem vive ou trabalha na região.</p>
-        </div>
-        <div class="diff-card reveal" style="--delay:.25s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-          <h3>Agendamento pelo WhatsApp</h3>
-          <p>Fale direto com nossa equipe e agende sua avaliação de forma simples e rápida.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ AVALIAÇÕES / PROVA SOCIAL ============ -->
-  <section class="section section-dark" id="avaliacoes">
-    <div class="container">
-      <div class="reviews-head reveal">
-        <div class="reviews-score">
-          <span class="score-number">4,6</span>
-          <div>
-            <span class="stars" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-              <svg viewBox="0 0 24 24"><use href="#icon-star"/></svg>
-            </span>
-            <span class="score-caption">265 avaliações no Google</span>
+      <div class="screens-grid">
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Dashboard</span></div>
+          <div class="sc-body mock-dash">
+            <div class="kpi-row">
+              <div class="kpi"><div class="lab">Saldo</div><div class="val g">R$ 6.230</div></div>
+              <div class="kpi"><div class="lab">Gasto</div><div class="val">R$ 2.140</div></div>
+            </div>
+            <div class="chart-panel" style="height:70px;">
+              <div class="chart-bars"><i style="height:40%"></i><i style="height:60%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:52%"></i></div>
+            </div>
           </div>
         </div>
-        <p class="section-lead">O que dizemos aqui é apoiado pela avaliação real dos nossos pacientes no Google. Abaixo, alguns exemplos de comentário — espaço reservado para os depoimentos reais da clínica.</p>
-      </div>
 
-      <div class="review-grid">
-        <div class="review-card reveal">
-          <svg class="quote-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-quote"/></svg>
-          <p>“Fui muito bem recebida, expliquei minha situação e a equipe me deixou super à vontade durante todo o atendimento.”</p>
-          <span class="review-name">Depoimento de exemplo — Paciente</span>
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Metas</span></div>
+          <div class="sc-body mock-goals">
+            <div class="goal-item"><div class="goal-ring" style="--p:72%"><b></b></div><div class="gt"><b>Viagem à praia</b><span>72% concluída</span></div></div>
+            <div class="goal-item"><div class="goal-ring" style="--p:40%"><b></b></div><div class="gt"><b>Notebook novo</b><span>40% concluída</span></div></div>
+            <div class="goal-item"><div class="goal-ring" style="--p:90%"><b></b></div><div class="gt"><b>Curso online</b><span>90% concluída</span></div></div>
+          </div>
         </div>
-        <div class="review-card reveal" style="--delay:.05s">
-          <svg class="quote-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-quote"/></svg>
-          <p>“Gostei muito da clareza nas explicações sobre o tratamento e da localização, super fácil de chegar no Centro.”</p>
-          <span class="review-name">Depoimento de exemplo — Paciente</span>
-        </div>
-        <div class="review-card reveal" style="--delay:.1s">
-          <svg class="quote-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-quote"/></svg>
-          <p>“Equipe atenciosa do início ao fim. Me senti seguro durante todo o meu tratamento.”</p>
-          <span class="review-name">Depoimento de exemplo — Paciente</span>
-        </div>
-      </div>
 
-      <p class="review-disclaimer">* Depoimentos ilustrativos, para posicionamento visual — substitua por avaliações reais dos pacientes da Oral Clin Campinas.</p>
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Categorias</span></div>
+          <div class="sc-body mock-cat">
+            <div class="cat-row"><div class="cat-dot" style="background:var(--blue-light)"></div><div class="cbar"><i style="width:70%;background:var(--blue-light)"></i></div><span>35%</span></div>
+            <div class="cat-row"><div class="cat-dot" style="background:var(--green)"></div><div class="cbar"><i style="width:45%;background:var(--green)"></i></div><span>22%</span></div>
+            <div class="cat-row"><div class="cat-dot" style="background:#7d5cff"></div><div class="cbar"><i style="width:55%;background:#7d5cff"></i></div><span>28%</span></div>
+            <div class="cat-row"><div class="cat-dot" style="background:#ff8a4c"></div><div class="cbar"><i style="width:25%;background:#ff8a4c"></i></div><span>15%</span></div>
+          </div>
+        </div>
 
-      <div class="reviews-cta reveal">
-        <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Oral%20Clin%20Campinas."
-           class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-          <span>Quero agendar minha avaliação</span>
-        </a>
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Movimentações</span></div>
+          <div class="sc-body mock-moves">
+            <div class="move-row"><div class="move-ic"></div><div class="mt"><b>Supermercado</b><span>Hoje</span></div><div class="mv neg">-R$180</div></div>
+            <div class="move-row"><div class="move-ic"></div><div class="mt"><b>Salário</b><span>Ontem</span></div><div class="mv pos">+R$3.200</div></div>
+            <div class="move-row"><div class="move-ic"></div><div class="mt"><b>Assinatura</b><span>2 dias atrás</span></div><div class="mv neg">-R$39</div></div>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Reserva de emergência</span></div>
+          <div class="sc-body mock-reserve">
+            <div class="reserve-ring"><b>62%</b></div>
+            <span>R$ 6.200 de R$ 10.000</span>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Perfil</span></div>
+          <div class="sc-body mock-profile">
+            <div class="avatar-circ"><svg viewBox="0 0 24 24" fill="none" style="width:46%;height:46%"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
+            <div class="pname">Ana Ferreira</div>
+            <div class="ptag">Plano Vitalício</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ CONVÊNIOS ============ -->
-  <section class="section convenios">
-    <div class="container convenios-inner reveal">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-shield"/></svg>
+  <!-- HOW IT WORKS -->
+  <section class="how" id="como-funciona">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Simples assim</span>
+        <h2>Do caos financeiro à clareza total</h2>
+      </div>
+      <div class="how-steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Crie sua conta</h3>
+          <p>Cadastro rápido, sem burocracia. Comece em menos de 2 minutos.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Organize suas finanças</h3>
+          <p>O app organiza seus gastos e mostra exatamente para onde vai seu dinheiro.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Alcance seus objetivos</h3>
+          <p>Acompanhe metas, construa sua reserva e evolua com clareza.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats reveal">
+    <div class="container">
       <div>
-        <h2>Atendemos diversos convênios</h2>
-        <p>Fale com a nossa equipe pelo WhatsApp para verificar cobertura e condições de atendimento do seu convênio.</p>
+        <div class="stat-num" data-count="8284">0</div>
+        <div class="stat-lab">Usuários organizando sua vida financeira</div>
       </div>
-      <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20conv%C3%AAnios%20atendidos%20pela%20Oral%20Clin%20Campinas."
-         class="btn btn-outline" target="_blank" rel="noopener">Verificar convênio</a>
+      <div>
+        <div class="stat-num" data-count="30">0</div>
+        <div class="stat-lab">Dias de garantia incondicional</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="4" data-suffix=".9★">0</div>
+        <div class="stat-lab">Avaliação média dos usuários</div>
+      </div>
     </div>
   </section>
 
-  <!-- ============ FAQ ============ -->
-  <section class="section" id="faq">
-    <div class="container faq-grid">
-      <div class="faq-head reveal">
-        <p class="eyebrow">Dúvidas frequentes</p>
-        <h2>Perguntas sobre a Oral Clin Campinas</h2>
-        <p class="section-lead">Se não encontrar sua resposta aqui, fale com a gente pelo WhatsApp.</p>
-        <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20a%20Oral%20Clin%20Campinas."
-           class="btn btn-whatsapp" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-          <span>Falar no WhatsApp</span>
-        </a>
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="depoimentos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Quem usa, recomenda</span>
+        <h2>Pessoas reais, resultados reais</h2>
       </div>
-
-      <div class="faq-list reveal" style="--delay:.1s">
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Quais tratamentos a Oral Clin Campinas realiza?</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg>
-          </button>
-          <div class="faq-answer">
-            <p>A clínica realiza clínica geral, ortodontia, implantes, próteses, endodontia e clareamento dental.</p>
-          </div>
+    </div>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marqueeTrack">
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#4d7dff,#1638a3)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Mariana Souza</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Em dois meses consegui economizar mais do que em todo o ano anterior. Finalmente entendo para onde vai meu dinheiro.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>A clínica atende convênios?</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg>
-          </button>
-          <div class="faq-answer">
-            <p>Sim, atendemos diversos convênios. Fale com nossa equipe pelo WhatsApp para verificar cobertura e condições de atendimento.</p>
-          </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#3fe3a6,#0d9e6c)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Rafael Costa</div><div class="t-stars">★★★★★</div></div></div>
+          <p>O app é simples e direto. Criei minha reserva de emergência sem esforço, só seguindo as metas.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Como agendar uma avaliação?</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg>
-          </button>
-          <div class="faq-answer">
-            <p>O agendamento pode ser feito diretamente pelo WhatsApp da clínica, através dos botões presentes neste site.</p>
-          </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#9c85ff,#5a3ccf)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Juliana Alves</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Testei vários apps de finanças antes. O Zenvest é o único que realmente uso todos os dias.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Onde a clínica está localizada?</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg>
-          </button>
-          <div class="faq-answer">
-            <p>A Oral Clin Campinas está localizada na Rua Barão de Jaguara, 1147 — Centro, Campinas/SP.</p>
-          </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#ffab6e,#e2661a)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Carlos Mendes</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Visualizar meus gastos por categoria mudou completamente como eu penso em dinheiro.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>O atendimento é feito com hora marcada?</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg>
-          </button>
-          <div class="faq-answer">
-            <p>Sim, o atendimento é organizado por horário marcado. Entre em contato pelo WhatsApp para verificar disponibilidade.</p>
-          </div>
+        <!-- duplicate for seamless loop -->
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#4d7dff,#1638a3)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Mariana Souza</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Em dois meses consegui economizar mais do que em todo o ano anterior. Finalmente entendo para onde vai meu dinheiro.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Posso falar diretamente pelo WhatsApp?</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-chevron"/></svg>
-          </button>
-          <div class="faq-answer">
-            <p>Sim, você pode falar com nossa equipe pelo WhatsApp através de qualquer botão de agendamento deste site.</p>
-          </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#3fe3a6,#0d9e6c)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Rafael Costa</div><div class="t-stars">★★★★★</div></div></div>
+          <p>O app é simples e direto. Criei minha reserva de emergência sem esforço, só seguindo as metas.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#9c85ff,#5a3ccf)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Juliana Alves</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Testei vários apps de finanças antes. O Zenvest é o único que realmente uso todos os dias.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#ffab6e,#e2661a)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Carlos Mendes</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Visualizar meus gastos por categoria mudou completamente como eu penso em dinheiro.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ CTA FINAL ============ -->
-  <section class="cta-final" id="contato">
-    <div class="cta-arc" aria-hidden="true"></div>
-    <div class="container cta-final-inner reveal">
-      <p class="eyebrow eyebrow-light">Vamos cuidar do seu sorriso</p>
-      <h2>Agende sua avaliação na Oral Clin Campinas</h2>
-      <p>Atendimento humanizado, equipe capacitada e localização central — a um WhatsApp de distância.</p>
-      <div class="cta-final-actions">
-        <a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Oral%20Clin%20Campinas."
-           class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-          <span>Agendar no WhatsApp</span>
-        </a>
-        <a href="tel:+551925134344" class="btn btn-outline-light btn-lg">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-phone"/></svg>
-          <span>(19) 2513-4344</span>
-        </a>
+  <!-- PRICING -->
+  <section class="pricing" id="planos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Planos</span>
+        <h2>Escolha como quer transformar sua vida financeira</h2>
       </div>
-      <p class="cta-location"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"/></svg> Rua Barão de Jaguara, 1147 — Centro, Campinas/SP</p>
+      <div class="plans-grid">
+        <div class="plan reveal">
+          <div class="p-name">Mensal</div>
+          <div class="p-price"><span class="cur">R$</span><span class="num">29,90</span></div>
+          <div class="p-cycle">cobrado todo mês</div>
+          <ul class="p-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Controle de gastos completo</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Metas ilimitadas</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Reserva de emergência</li>
+          </ul>
+          <a href="https://pay.cakto.com.br/hns6tdi_540424" class="btn btn-ghost btn-block">Assinar mensal</a>
+        </div>
+
+        <div class="plan featured reveal">
+          <div class="badge">⭐ MAIS VENDIDO</div>
+          <div class="p-name">Vitalício</div>
+          <div class="p-price"><span class="cur">R$</span><span class="num">197,00</span></div>
+          <div class="p-cycle">pagamento único · acesso para sempre</div>
+          <ul class="p-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do plano mensal</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem mensalidades, nunca mais</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Atualizações vitalícias grátis</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Suporte prioritário</li>
+          </ul>
+          <a href="https://pay.cakto.com.br/qnnsc36" class="btn btn-primary btn-block">Quero acesso vitalício</a>
+        </div>
+
+        <div class="plan reveal">
+          <div class="p-name">Trimestral</div>
+          <div class="p-price"><span class="cur">R$</span><span class="num">69,90</span></div>
+          <div class="p-cycle">a cada 3 meses</div>
+          <ul class="p-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do plano mensal</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Economize a cada renovação</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem fidelidade</li>
+          </ul>
+          <a href="https://pay.cakto.com.br/3bsto26" class="btn btn-blue-outline btn-block">Assinar trimestral</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="guarantee">
+    <div class="container">
+      <div class="g-box reveal">
+        <div class="g-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L19 6V11C19 15.5 16 19 12 20.5C8 19 5 15.5 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12L11 14L15.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3>Garantia incondicional de 30 dias</h3>
+          <p>Se por qualquer motivo o Zenvest não fizer sentido para você, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2 class="reveal">Sua vida financeira organizada começa agora.</h2>
+      <p class="reveal">Junte-se a mais de 8 mil pessoas que já assumiram o controle do próprio dinheiro.</p>
+      <a href="#planos" class="btn btn-primary reveal">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Quero começar agora
+      </a>
     </div>
   </section>
 
 </main>
 
-<!-- ============ FOOTER ============ -->
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-brand">
-      <a href="#inicio" class="logo logo-footer">
-        <svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tooth"/></svg>
-        <span class="logo-text">Oral Clin <em>Campinas</em></span>
-      </a>
-      <p>Clínica odontológica no Centro de Campinas/SP. Atendimento humanizado e tratamentos modernos para o seu sorriso.</p>
-      <div class="footer-contact">
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-phone"/></svg> (19) 2513-4344</span>
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"/></svg> Rua Barão de Jaguara, 1147 – Centro, Campinas/SP</span>
+<footer>
+  <div class="container">
+    <div class="brand" style="font-size:16px;">
+      <div class="brand-mark" style="width:26px;height:26px;">
+        <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;"><path d="M4 17L10 11L14 15L20 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H20V12" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
+      Zenvest
     </div>
-
-    <div class="footer-col">
-      <h4>Menu</h4>
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#tratamentos">Tratamentos</a>
-      <a href="#diferenciais">Diferenciais</a>
-      <a href="#avaliacoes">Avaliações</a>
-      <a href="#faq">FAQ</a>
+    <div class="f-links">
+      <a href="#planos">Planos</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#">Termos de uso</a>
+      <a href="#">Privacidade</a>
     </div>
-
-    <div class="footer-col">
-      <h4>Tratamentos</h4>
-      <a href="/implantes.html">Implantes</a>
-      <a href="/proteses.html">Próteses</a>
-      <a href="/ortodontia.html">Ortodontia</a>
-      <a href="/clareamento.html">Clareamento</a>
-      <a href="/endodontia.html">Endodontia</a>
-      <a href="/clinica-geral.html">Clínica Geral</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Fale conosco</h4>
-      <a href="https://wa.me/551925134344" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="tel:+551925134344">Ligar agora</a>
-    </div>
-  </div>
-
-  <div class="container footer-bottom">
-    <p>&copy; <span id="year"></span> Oral Clin Campinas. Todos os direitos reservados.</p>
-    <p>Responsável Técnico: Dr. William Freitas Carvalho Munhoz — CRO 144293</p>
+    <div class="f-copy">© 2026 Zenvest. Todos os direitos reservados.</div>
   </div>
 </footer>
 
-<!-- ============ BOTÃO FLUTUANTE WHATSAPP ============ -->
-<a href="https://wa.me/551925134344?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Oral%20Clin%20Campinas."
-   class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-</a>
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
 
-<script src="script.js"></script>
+  // Counter animation
+  const counters = document.querySelectorAll('.stat-num');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1600;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.floor(eased * target).toLocaleString('pt-BR') + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterIO.observe(el));
+
+  // Subtle parallax on hero device stage
+  const stage = document.getElementById('deviceStage');
+  if (stage && window.matchMedia('(pointer:fine)').matches) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const rect = stage.getBoundingClientRect();
+      const relX = (e.clientX - rect.left - rect.width/2) / rect.width;
+      const relY = (e.clientY - rect.top - rect.height/2) / rect.height;
+      stage.style.transform = `rotateY(${relX*4}deg) rotateX(${-relY*4}deg)`;
+    });
+    document.querySelector('.hero').addEventListener('mouseleave', () => {
+      stage.style.transform = 'rotateY(0) rotateX(0)';
+    });
+  }
+</script>
+
 </body>
 </html>
