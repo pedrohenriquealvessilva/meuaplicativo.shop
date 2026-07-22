@@ -44,7 +44,7 @@
     -webkit-font-smoothing:antialiased;
     min-height:100vh;
   }
-  ::selection{ background:var(--green-dim); color:var(--green); }
+  ::selection{ background:var(--blue-dim); color:var(--blue); }
   ::-webkit-scrollbar{ width:8px; height:8px; }
   ::-webkit-scrollbar-track{ background:transparent; }
   ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,0.12); border-radius:10px; }
@@ -54,7 +54,7 @@
   button{ font-family:inherit; cursor:pointer; }
   h1,h2,h3,h4{ font-family:'Space Grotesk', 'Inter', sans-serif; letter-spacing:-0.02em; }
 
-  :focus-visible{ outline:2px solid var(--green); outline-offset:2px; border-radius:6px; }
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:2px; border-radius:6px; }
 
   /* ============================================================
      LOADING SCREEN
@@ -79,7 +79,7 @@
   .load-mark::before{
     content:'';
     position:absolute; inset:-2px; border-radius:20px;
-    background:conic-gradient(from 0deg, transparent, var(--green), transparent 30%);
+    background:conic-gradient(from 0deg, transparent, var(--blue), transparent 30%);
     animation:spin 1.6s linear infinite;
     z-index:-1;
     opacity:.9;
