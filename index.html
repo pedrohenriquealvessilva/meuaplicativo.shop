@@ -2,737 +2,1012 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zenvest — Transforme seus gastos em um plano para alcançar seus objetivos</title>
-<meta name="description" content="O Zenvest organiza sua vida financeira, mostra para onde seu dinheiro vai e transforma seus objetivos em planos reais. Clareza, controle e liberdade financeira.">
-<meta name="theme-color" content="#0A0D12">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Zenvest — Clareza financeira, todos os dias.">
-<meta property="og:description" content="Transforme seus gastos em um plano para alcançar seus objetivos.">
-<meta property="og:type" content="website">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Zenvest — Saiba para onde vai o seu dinheiro</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/pedrohenriquealvessilva/fotos/main/IMG_2014.png">
+<meta name="description" content="Zenvest: o app que organiza suas finanças, cria metas e constrói sua reserva de emergência em minutos por dia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05070d;
+    --bg-2:#070b16;
+    --surface:#0d1326;
+    --surface-2:#121a33;
+    --surface-3:#171f3d;
+    --border:rgba(255,255,255,.08);
+    --border-soft:rgba(255,255,255,.05);
+    --blue:#3169ff;
+    --blue-light:#5c8bff;
+    --blue-pale:#9db6ff;
+    --blue-deep:#122566;
+    --green:#1fd88f;
+    --green-dim:#12a06b;
+    --white:#f4f7ff;
+    --gray:#98a3c4;
+    --gray-dim:#5c688f;
+    --radius:20px;
+    --radius-sm:12px;
+    --shadow-blue: 0 20px 60px -20px rgba(49,105,255,.45);
+    --ff-display:'Sora',sans-serif;
+    --ff-body:'Inter',sans-serif;
+  }
 
-<link rel="stylesheet" href="style.css">
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden;width:100%;}
+  body{
+    font-family:var(--ff-body);
+    background:var(--bg);
+    color:var(--white);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width:100%;
+    line-height:1.5;
+  }
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  .container{
+    width:100%;
+    max-width:1220px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  @media (max-width:420px){
+    .container{padding:0 16px;}
+  }
+  section{position:relative;}
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--ff-body);
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue-pale);
+    background:rgba(49,105,255,.1);
+    border:1px solid rgba(49,105,255,.25);
+    padding:7px 16px 7px 12px;
+    border-radius:999px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1,h2,h3{font-family:var(--ff-display);font-weight:700;letter-spacing:-0.02em;color:var(--white);}
+  .section-head{max-width:640px;margin:0 auto 52px;text-align:center;}
+  .section-head h2{font-size:clamp(28px,4vw,42px);margin-top:16px;line-height:1.15;}
+  .section-head p{color:var(--gray);font-size:16px;margin-top:14px;}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-family:var(--ff-body);
+    font-weight:700;
+    font-size:15.5px;
+    padding:16px 30px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background .25s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--blue-light),var(--blue) 55%,#1a3fce);
+    color:#fff;
+    box-shadow:var(--shadow-blue);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 26px 70px -18px rgba(49,105,255,.65);}
+  .btn-ghost{
+    background:rgba(255,255,255,.04);
+    color:var(--white);
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.08);}
+  .btn-blue-outline{
+    background:rgba(49,105,255,.12);
+    color:var(--blue-pale);
+    border:1.5px solid var(--blue);
+  }
+  .btn-blue-outline:hover{background:rgba(49,105,255,.22);transform:translateY(-3px);}
+  .btn-block{width:100%;}
+  .btn svg{width:18px;height:18px;flex-shrink:0;}
+
+  /* NAV */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:16px 0;
+    background:rgba(5,7,13,.55);
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav .container{display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:700;font-size:19px;letter-spacing:-0.01em;}
+  .brand-mark{
+    width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px -4px rgba(49,105,255,.6);
+  }
+  .brand-mark svg{width:17px;height:17px;}
+  .nav-links{display:flex;gap:32px;font-size:14.5px;color:var(--gray);font-weight:500;}
+  .nav-links a:hover{color:var(--white);}
+  .nav .btn{padding:11px 22px;font-size:14px;}
+  .nav-cta-wrap{display:flex;align-items:center;gap:20px;}
+  @media (max-width:780px){
+    .nav-links{display:none;}
+    .nav .container{padding:0 18px;}
+  }
+  @media (max-width:420px){
+    .brand{font-size:16px;gap:8px;}
+    .brand-mark{width:28px;height:28px;}
+    .nav .btn{padding:9px 16px;font-size:12.5px;}
+  }
+
+  /* HERO */
+  .hero{
+    padding:150px 0 90px;
+    background:
+      radial-gradient(900px 480px at 82% -10%, rgba(49,105,255,.28), transparent 60%),
+      radial-gradient(700px 500px at -10% 30%, rgba(31,216,143,.08), transparent 55%),
+      var(--bg);
+    overflow:hidden;
+  }
+  .hero .container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-copy h1{
+    font-size:clamp(34px,4.6vw,58px);
+    line-height:1.06;
+    margin:20px 0 18px;
+  }
+  .hero-copy h1 .accent{
+    background:linear-gradient(100deg,var(--blue-light),var(--green) 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-copy p.sub{
+    font-size:17.5px;color:var(--gray);max-width:460px;margin-bottom:32px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:34px;}
+  .trust-row{display:flex;align-items:center;gap:14px;color:var(--gray-dim);font-size:13.5px;}
+  .trust-row .avatars{display:flex;}
+  .trust-row .avatars span{
+    width:28px;height:28px;border-radius:50%;border:2px solid var(--bg);
+    margin-left:-8px;font-size:10px;font-weight:700;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--ff-display);
+  }
+  .trust-row .avatars span:first-child{margin-left:0;}
+  .trust-row .avatars span svg{width:60%;height:60%;}
+  .t-avatar svg{width:56%;height:56%;}
+
+  /* Hero visual composition */
+  .hero-visual{position:relative;height:520px;}
+  .glow-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;z-index:0;pointer-events:none;}
+  .glow-blob.b1{width:380px;height:380px;background:var(--blue);top:-40px;right:10px;}
+  .glow-blob.b2{width:260px;height:260px;background:var(--green);opacity:.18;bottom:-30px;left:0;}
+
+  .device-stage{position:relative;width:100%;height:100%;z-index:2;transform-style:preserve-3d;}
+
+  .laptop{
+    position:absolute;left:0;top:70px;width:78%;
+    transform:perspective(1400px) rotateY(8deg) rotateX(2deg);
+    filter:drop-shadow(0 40px 60px rgba(0,0,0,.55));
+  }
+  .laptop-screen{
+    background:#060912;
+    border:6px solid #12162a;
+    border-radius:14px 14px 4px 4px;
+    aspect-ratio:16/10.2;
+    padding:14px;
+    position:relative;
+    overflow:hidden;
+  }
+  .laptop-base{
+    height:11px;background:linear-gradient(#1a2036,#0c0f1c);
+    border-radius:0 0 10px 10px;
+    box-shadow:0 6px 14px rgba(0,0,0,.5);
+  }
+  .screen-topbar{display:flex;gap:5px;margin-bottom:10px;}
+  .screen-topbar span{width:7px;height:7px;border-radius:50%;background:#232a45;}
+  .screen-grid{display:grid;grid-template-columns:1.3fr 2fr;gap:9px;height:calc(100% - 20px);}
+  .screen-side{background:#0b0f20;border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:7px;}
+  .screen-side .sd{height:8px;border-radius:4px;background:#1b2137;}
+  .screen-side .sd.active{background:linear-gradient(90deg,var(--blue),var(--blue-light));width:70%;}
+  .screen-main{display:flex;flex-direction:column;gap:8px;}
+  .kpi-row{display:flex;gap:8px;}
+  .kpi{flex:1;background:#0b0f20;border-radius:8px;padding:8px;border:1px solid #161c30;}
+  .kpi .lab{font-size:6px;color:#5c688f;text-transform:uppercase;letter-spacing:.06em;font-weight:700;}
+  .kpi .val{font-size:11px;font-weight:700;color:#fff;margin-top:3px;font-family:var(--ff-display);}
+  .kpi .val.g{color:var(--green);}
+  .chart-panel{flex:1;background:#0b0f20;border-radius:8px;padding:10px;position:relative;overflow:hidden;}
+  .chart-bars{display:flex;align-items:flex-end;gap:5px;height:100%;}
+  .chart-bars i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--blue-light),var(--blue-deep));}
+  .chart-bars i:nth-child(4){background:linear-gradient(180deg,var(--green),var(--green-dim));}
+
+  .phone{
+    position:absolute;right:-6px;bottom:-10px;width:172px;
+    transform:perspective(1200px) rotateY(-10deg) rotateX(1deg);
+    filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));
+    z-index:3;
+  }
+  .phone-body{
+    background:#080b16;border:5px solid #171d33;border-radius:30px;
+    aspect-ratio:9/18.5;padding:10px 8px;position:relative;overflow:hidden;
+  }
+  .phone-notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:44%;height:14px;background:#171d33;border-radius:0 0 10px 10px;z-index:2;}
+  .phone-bal{margin-top:22px;text-align:center;}
+  .phone-bal .lab{font-size:7px;color:#5c688f;text-transform:uppercase;letter-spacing:.06em;font-weight:700;}
+  .phone-bal .amt{font-family:var(--ff-display);font-size:15px;font-weight:700;color:#fff;margin-top:2px;}
+  .phone-bal .amt span{color:var(--green);}
+  .phone-ring{margin:12px auto 0;width:58px;height:58px;border-radius:50%;
+    background:conic-gradient(var(--green) 0 68%, #171d33 0 100%);
+    display:flex;align-items:center;justify-content:center;}
+  .phone-ring b{width:44px;height:44px;border-radius:50%;background:#080b16;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:var(--ff-display);font-weight:700;}
+  .phone-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+  .phone-list div{display:flex;align-items:center;gap:6px;background:#0e1224;border-radius:7px;padding:5px 6px;}
+  .phone-list i{width:14px;height:14px;border-radius:5px;background:var(--blue);flex-shrink:0;}
+  .phone-list b{flex:1;height:5px;border-radius:3px;background:#1e2540;}
+
+  .float-card{
+    position:absolute;
+    background:rgba(13,19,38,.75);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(14px);
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;align-items:center;gap:10px;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.55);
+    animation:float 6s ease-in-out infinite;
+    z-index:4;
+  }
+  .float-card .ic{width:34px;height:34px;border-radius:10px;background:rgba(31,216,143,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .float-card .ic svg{width:17px;height:17px;color:var(--green);}
+  .float-card .tx b{display:block;font-family:var(--ff-display);font-size:13.5px;color:#fff;}
+  .float-card .tx span{font-size:10.5px;color:var(--gray);}
+  .float-1{top:26px;left:-8px;animation-delay:0s;}
+  .float-2{bottom:96px;right:20px;animation-delay:1.2s;}
+  .float-2 .ic{background:rgba(49,105,255,.16);}
+  .float-2 .ic svg{color:var(--blue-light);}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  @media (max-width:960px){
+    .hero{padding:130px 0 70px;}
+    .hero .container{grid-template-columns:1fr;text-align:center;}
+    .hero-copy p.sub{margin-left:auto;margin-right:auto;}
+    .hero-actions{justify-content:center;}
+    .trust-row{justify-content:center;flex-wrap:wrap;text-align:left;}
+    .hero-visual{height:380px;margin-top:26px;}
+    .laptop{width:84%;left:50%;transform:translateX(-58%) perspective(1400px) rotateY(8deg) rotateX(2deg);}
+    .phone{width:122px;right:2%;}
+    .float-card{padding:8px 10px;}
+    .float-card .tx b{font-size:12px;}
+    .float-card .tx span{font-size:9.5px;}
+    .float-1{left:0;top:10px;}
+    .float-2{right:4px;bottom:70px;}
+  }
+  @media (max-width:520px){
+    .hero-visual{height:320px;}
+    .laptop{width:82%;}
+    .phone{width:100px;bottom:0;}
+    .float-card{gap:7px;}
+    .float-card .ic{width:28px;height:28px;}
+    .float-card .ic svg{width:14px;height:14px;}
+  }
+
+  /* VIDEO */
+  .video-section{padding:70px 0 90px;background:var(--bg);}
+  .video-frame-wrap{
+    max-width:340px;margin:0 auto;
+    border-radius:26px;
+    padding:8px;
+    background:linear-gradient(160deg,rgba(49,105,255,.5),rgba(255,255,255,.04) 40%, rgba(31,216,143,.25));
+    box-shadow:0 30px 80px -20px rgba(49,105,255,.35);
+  }
+  .video-frame{
+    border-radius:20px;
+    overflow:hidden;
+    aspect-ratio:9/16;
+    background:#000;
+    position:relative;
+  }
+  .video-frame iframe{width:100%;height:100%;border:0;display:block;}
+
+  /* BENEFITS */
+  .benefits{padding:90px 0;background:linear-gradient(180deg,var(--bg),var(--bg-2));}
+  .benefits-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  .b-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px 24px;
+    transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  }
+  .b-card:hover{transform:translateY(-6px);border-color:rgba(49,105,255,.4);background:var(--surface-2);}
+  .b-icon{
+    width:46px;height:46px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(49,105,255,.25),rgba(49,105,255,.06));
+    border:1px solid rgba(49,105,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+  }
+  .b-icon svg{width:22px;height:22px;color:var(--blue-light);}
+  .b-card h3{font-size:17px;margin-bottom:8px;}
+  .b-card p{font-size:14.5px;color:var(--gray);}
+  @media (max-width:900px){.benefits-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.benefits-grid{grid-template-columns:1fr;}}
+
+  /* DASHBOARD SHOWCASE */
+  .app-showcase{padding:100px 0;background:var(--bg-2);position:relative;overflow:hidden;}
+  .app-showcase::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(600px 400px at 50% 0%,rgba(49,105,255,.14),transparent 60%);
+  }
+  .screens-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1;
+  }
+  .screen-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    transition:transform .3s ease,border-color .3s ease;
+  }
+  .screen-card:hover{transform:translateY(-5px);border-color:rgba(49,105,255,.35);}
+  .screen-card .sc-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+  .screen-card .sc-head .dotc{width:7px;height:7px;border-radius:50%;background:var(--blue-light);}
+  .screen-card .sc-head span{font-size:12.5px;font-weight:700;font-family:var(--ff-display);color:var(--gray);text-transform:uppercase;letter-spacing:.04em;}
+  .screen-card .sc-body{padding:16px;height:150px;}
+
+  .mock-dash .kpi-row{margin-bottom:10px;}
+  .mock-goals .goal-item{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .goal-ring{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:conic-gradient(var(--green) 0 var(--p,50%), #171f3d 0 100%);display:flex;align-items:center;justify-content:center;}
+  .goal-ring b{width:24px;height:24px;background:var(--surface);border-radius:50%;}
+  .goal-item .gt{flex:1;}
+  .goal-item .gt b{display:block;font-size:12px;color:#fff;}
+  .goal-item .gt span{font-size:10.5px;color:var(--gray-dim);}
+
+  .mock-cat .cat-row{display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+  .cat-dot{width:10px;height:10px;border-radius:4px;flex-shrink:0;}
+  .cat-row .cbar{flex:1;height:6px;border-radius:4px;background:#171f3d;overflow:hidden;}
+  .cat-row .cbar i{display:block;height:100%;border-radius:4px;}
+  .cat-row span{font-size:10.5px;color:var(--gray);width:36px;text-align:right;}
+
+  .mock-moves .move-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .move-ic{width:28px;height:28px;border-radius:8px;background:var(--surface-2);flex-shrink:0;}
+  .move-row .mt{flex:1;}
+  .move-row .mt b{display:block;font-size:11.5px;color:#fff;}
+  .move-row .mt span{font-size:10px;color:var(--gray-dim);}
+  .move-row .mv{font-size:12px;font-weight:700;font-family:var(--ff-display);}
+  .move-row .mv.neg{color:var(--gray);}
+  .move-row .mv.pos{color:var(--green);}
+
+  .mock-reserve{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;}
+  .reserve-ring{width:88px;height:88px;border-radius:50%;background:conic-gradient(var(--green) 0 62%, #171f3d 0 100%);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .reserve-ring b{width:66px;height:66px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:15px;}
+  .mock-reserve span{font-size:11px;color:var(--gray);}
+
+  .mock-profile{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:8px;}
+  .avatar-circ{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:16px;}
+  .mock-profile .pname{font-size:12.5px;font-weight:700;color:#fff;}
+  .mock-profile .ptag{font-size:10.5px;color:var(--green);background:rgba(31,216,143,.1);padding:3px 10px;border-radius:999px;}
+
+  @media (max-width:900px){.screens-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.screens-grid{grid-template-columns:1fr;}}
+
+  /* HOW IT WORKS */
+  .how{padding:100px 0;background:var(--bg);}
+  .how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;}
+  .how-steps::before{
+    content:'';position:absolute;top:34px;left:14%;right:14%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--border),transparent);
+    z-index:0;
+  }
+  .step{position:relative;z-index:1;text-align:center;padding:0 12px;}
+  .step-num{
+    width:68px;height:68px;border-radius:50%;margin:0 auto 22px;
+    background:var(--surface);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--ff-display);font-weight:800;font-size:22px;
+    background-image:linear-gradient(135deg,rgba(49,105,255,.18),transparent);
+  }
+  .step h3{font-size:18px;margin-bottom:8px;}
+  .step p{font-size:14.5px;color:var(--gray);max-width:230px;margin:0 auto;}
+  @media (max-width:760px){.how-steps{grid-template-columns:1fr;gap:44px;}.how-steps::before{display:none;}}
+
+  /* STATS */
+  .stats{padding:70px 0;background:linear-gradient(180deg,var(--bg-2),var(--bg));border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .stats .container{display:flex;justify-content:center;align-items:center;gap:70px;flex-wrap:wrap;text-align:center;}
+  @media (max-width:600px){.stats .container{gap:36px;}}
+  .stat-num{
+    font-family:var(--ff-display);font-weight:800;
+    font-size:clamp(38px,5vw,54px);
+    background:linear-gradient(100deg,var(--white),var(--blue-pale));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .stat-lab{color:var(--gray);font-size:14px;margin-top:6px;}
+
+  /* TESTIMONIALS */
+  .testimonials{padding:100px 0;background:var(--bg);overflow:hidden;}
+  .marquee-wrap{position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .marquee-track{display:flex;gap:20px;width:max-content;animation:marquee 34s linear infinite;}
+  .marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .t-card{
+    width:320px;flex-shrink:0;
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;
+  }
+  .t-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .t-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;font-size:14px;color:#fff;flex-shrink:0;}
+  .t-name{font-size:14.5px;font-weight:700;color:#fff;}
+  .t-stars{color:#ffb238;font-size:12px;letter-spacing:2px;margin-top:2px;}
+  .t-card p{font-size:14px;color:var(--gray);line-height:1.6;}
+
+  /* PRICING */
+  .pricing{padding:110px 0 100px;background:linear-gradient(180deg,var(--bg),#080c1a 40%,var(--bg));position:relative;}
+  .pricing::before{content:'';position:absolute;top:120px;left:50%;transform:translateX(-50%);width:520px;height:520px;background:radial-gradient(circle,rgba(49,105,255,.28),transparent 70%);filter:blur(10px);pointer-events:none;}
+  .plans-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:center;
+  }
+  .plan{
+    background:var(--surface);border:1px solid var(--border);border-radius:22px;
+    padding:34px 28px;display:flex;flex-direction:column;
+  }
+  .plan .p-name{font-size:14px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;}
+  .plan .p-price{display:flex;align-items:baseline;gap:4px;margin-bottom:6px;}
+  .plan .p-price .cur{font-size:16px;color:var(--gray);font-weight:600;}
+  .plan .p-price .num{font-family:var(--ff-display);font-size:38px;font-weight:800;color:#fff;}
+  .plan .p-cycle{font-size:13px;color:var(--gray-dim);margin-bottom:24px;}
+  .plan .p-feats{margin-bottom:26px;flex:1;}
+  .plan .p-feats li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--gray);margin-bottom:11px;}
+  .plan .p-feats li svg{width:15px;height:15px;color:var(--green);flex-shrink:0;}
+  .plan.featured{
+    background:linear-gradient(165deg,#132456,var(--surface) 60%);
+    border:1px solid rgba(49,105,255,.5);
+    transform:scale(1.08);
+    box-shadow:0 30px 80px -20px rgba(49,105,255,.5);
+    position:relative;
+  }
+  .plan.featured .badge{
+    position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,#ffcf5c,#ff9d3d);
+    color:#3a2200;font-weight:800;font-size:12px;
+    padding:7px 18px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 8px 20px -4px rgba(255,160,60,.5);
+  }
+  .plan.featured .p-price .num{font-size:44px;}
+  @media (max-width:900px){
+    .plans-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto;}
+    .plan.featured{transform:scale(1);order:-1;}
+  }
+
+  /* GUARANTEE */
+  .guarantee{padding:90px 0;background:var(--bg-2);}
+  .g-box{
+    max-width:820px;margin:0 auto;
+    background:var(--surface);border:1px solid var(--border);border-radius:24px;
+    padding:48px;display:flex;align-items:center;gap:36px;
+  }
+  .g-icon{
+    width:88px;height:88px;border-radius:50%;flex-shrink:0;
+    background:radial-gradient(circle,rgba(31,216,143,.18),transparent 70%);
+    border:1px solid rgba(31,216,143,.35);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .g-icon svg{width:38px;height:38px;color:var(--green);}
+  .g-box h3{font-size:22px;margin-bottom:8px;}
+  .g-box p{color:var(--gray);font-size:14.5px;}
+  @media (max-width:700px){.g-box{flex-direction:column;text-align:center;padding:36px 26px;}}
+
+  /* FINAL CTA */
+  .final-cta{
+    padding:110px 0;text-align:center;position:relative;overflow:hidden;
+    background:radial-gradient(700px 400px at 50% 100%,rgba(49,105,255,.3),transparent 70%),var(--bg);
+  }
+  .final-cta h2{font-size:clamp(30px,5vw,48px);max-width:640px;margin:0 auto 16px;}
+  .final-cta p{color:var(--gray);font-size:16.5px;margin-bottom:38px;}
+  .final-cta .btn-primary{padding:20px 44px;font-size:17px;}
+
+  /* FOOTER */
+  footer{padding:44px 0;border-top:1px solid var(--border-soft);background:var(--bg);}
+  footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer .f-links{display:flex;gap:26px;font-size:13.5px;color:var(--gray-dim);}
+  footer .f-links a:hover{color:var(--gray);}
+  footer .f-copy{font-size:12.5px;color:var(--gray-dim);}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  }
+</style>
 </head>
 <body>
 
-<!-- ================= NOISE / GRAIN OVERLAY ================= -->
-<div class="grain" aria-hidden="true"></div>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#33E0A6" stop-opacity="0"/>
-      <stop offset="50%" stop-color="#33E0A6" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#7FA8FF" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-</svg>
-
-<!-- ================= HEADER ================= -->
-<header class="header" id="header">
-  <div class="container header__inner">
-    <a href="#top" class="logo" aria-label="Zenvest — página inicial">
-      <span class="logo__mark" aria-hidden="true">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 20L12 12L18 17L28 6" stroke="url(#logoGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M21 6H28V13" stroke="url(#logoGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <defs>
-            <linearGradient id="logoGrad" x1="4" y1="6" x2="28" y2="20" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#33E0A6"/>
-              <stop offset="1" stop-color="#8FF6D3"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </span>
-      <span class="logo__text">Zenvest</span>
-    </a>
-
-    <nav class="nav" aria-label="Navegação principal">
-      <a href="#solucao">Como funciona</a>
-      <a href="#demonstracao">Aplicativo</a>
+<header class="nav">
+  <div class="container">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 17L10 11L14 15L20 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H20V12" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      Zenvest
+    </div>
+    <nav class="nav-links">
+      <a href="#beneficios">Benefícios</a>
+      <a href="#app">O app</a>
       <a href="#depoimentos">Depoimentos</a>
       <a href="#planos">Planos</a>
-      <a href="#faq">Perguntas</a>
     </nav>
-
-    <div class="header__cta">
-      <a href="#planos" class="btn btn--ghost btn--sm">Entrar</a>
-      <a href="#planos" class="btn btn--primary btn--sm">Começar agora</a>
+    <div class="nav-cta-wrap">
+      <a href="#planos" class="btn btn-primary">Assinar agora</a>
     </div>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <div class="mobile-nav" id="mobileNav">
-    <a href="#solucao">Como funciona</a>
-    <a href="#demonstracao">Aplicativo</a>
-    <a href="#depoimentos">Depoimentos</a>
-    <a href="#planos">Planos</a>
-    <a href="#faq">Perguntas</a>
-    <a href="#planos" class="btn btn--primary">Começar agora</a>
   </div>
 </header>
 
-<main id="top">
+<main>
 
-  <!-- ================= HERO ================= -->
+  <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
-    <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
-
-    <!-- Signature: the "money river" flow line running through the hero -->
-    <svg class="flow-line flow-line--hero" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
-      <path id="flowPathHero" d="M-100,650 C 200,600 300,750 500,700 C 750,640 800,420 1050,380 C 1250,350 1350,470 1550,420" />
-    </svg>
-
-    <div class="container hero__inner">
-      <div class="hero__copy">
-        <p class="eyebrow" data-reveal>
-          <span class="eyebrow__dot"></span>Assistente financeiro pessoal inteligente
-        </p>
-        <h1 class="hero__title" data-reveal>
-          Pare de se perguntar<br>
-          <span class="text-gradient">para onde seu dinheiro foi.</span>
-        </h1>
-        <p class="hero__subtitle" data-reveal>
-          Tenha clareza sobre seus gastos, organize sua vida financeira e transforme
-          seus objetivos em planos reais com o Zenvest.
-        </p>
-
-        <div class="hero__actions" data-reveal>
-          <a href="#planos" class="btn btn--primary btn--lg">
-            Começar minha transformação financeira
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9H14M14 9L9.5 4.5M14 9L9.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>Controle financeiro inteligente</span>
+        <h1>Pare de perder dinheiro sem saber <span class="accent">para onde ele foi.</span></h1>
+        <p class="sub">O app que organiza seus gastos, cria metas reais e constrói sua reserva de emergência — em poucos minutos por dia.</p>
+        <div class="hero-actions">
+          <a href="#planos" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Organizar minhas finanças
           </a>
-          <p class="hero__microcopy">Escolha seu plano e comece a organizar sua vida financeira ainda hoje</p>
         </div>
-
-        <div class="hero__proof" data-reveal>
-          <div class="avatar-stack" aria-hidden="true">
-            <span class="avatar" style="--c1:#33E0A6;--c2:#1B8F63;">MF</span>
-            <span class="avatar" style="--c1:#E8C468;--c2:#B4813C;">RS</span>
-            <span class="avatar" style="--c1:#7FA8FF;--c2:#3E5FC4;">JA</span>
-            <span class="avatar" style="--c1:#FF9C7F;--c2:#C4593E;">LP</span>
+        <div class="trust-row">
+          <div class="avatars">
+            <span style="background:linear-gradient(135deg,#4d7dff,#1638a3)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+            <span style="background:linear-gradient(135deg,#3fe3a6,#0d9e6c)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+            <span style="background:linear-gradient(135deg,#9c85ff,#5a3ccf)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+            <span style="background:linear-gradient(135deg,#ffab6e,#e2661a)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
           </div>
-          <div class="hero__proof-text">
-            <strong>4,9/5</strong> de avaliação média
-            <span>· mais de 8.000 pessoas já organizaram suas finanças</span>
-          </div>
+          <span>+8.284 pessoas já organizaram sua vida financeira</span>
         </div>
       </div>
 
-      <div class="hero__visual" data-reveal>
-        <div class="phone-stage">
-          <!-- Back phone -->
-          <div class="phone phone--back">
-            <div class="phone__notch"></div>
-            <div class="phone__screen phone__screen--goals">
-              <p class="mini-label">Meta</p>
-              <p class="mini-title">Viagem para Lisboa</p>
-              <div class="mini-progress"><span style="width:64%"></span></div>
-              <p class="mini-value">R$ 3.840 <em>de R$ 6.000</em></p>
-            </div>
-          </div>
-
-          <!-- Front phone: main dashboard -->
-          <div class="phone phone--front">
-            <div class="phone__notch"></div>
-            <div class="phone__screen">
-              <div class="app-topbar">
-                <span>Olá, Marina</span>
-                <span class="app-topbar__icon" aria-hidden="true">●</span>
-              </div>
-
-              <div class="app-balance">
-                <p class="app-balance__label">Saldo disponível este mês</p>
-                <p class="app-balance__value">R$ <span id="counterBalance">2.480</span></p>
-                <p class="app-balance__delta">↑ 12% mais controlado que o mês passado</p>
-              </div>
-
-              <div class="app-chart" aria-hidden="true">
-                <svg viewBox="0 0 260 90" preserveAspectRatio="none">
-                  <path class="app-chart__area" d="M0,70 L30,60 L60,64 L90,40 L120,48 L150,25 L180,32 L210,14 L240,20 L260,10 L260,90 L0,90 Z"/>
-                  <path class="app-chart__line" d="M0,70 L30,60 L60,64 L90,40 L120,48 L150,25 L180,32 L210,14 L240,20 L260,10"/>
-                </svg>
-              </div>
-
-              <div class="app-list">
-                <div class="app-list__item">
-                  <span class="app-list__icon" style="--bg:#20342C;--fg:#33E0A6;">🏠</span>
-                  <span class="app-list__info"><strong>Moradia</strong><em>R$ 1.200</em></span>
-                  <span class="app-list__bar"><i style="width:70%;background:#33E0A6;"></i></span>
+      <div class="hero-visual">
+        <div class="glow-blob b1"></div>
+        <div class="glow-blob b2"></div>
+        <div class="device-stage" id="deviceStage">
+          <div class="laptop">
+            <div class="laptop-screen">
+              <div class="screen-topbar"><span></span><span></span><span></span></div>
+              <div class="screen-grid">
+                <div class="screen-side">
+                  <div class="sd active"></div>
+                  <div class="sd"></div>
+                  <div class="sd"></div>
+                  <div class="sd"></div>
                 </div>
-                <div class="app-list__item">
-                  <span class="app-list__icon" style="--bg:#332A1B;--fg:#E8C468;">🍽️</span>
-                  <span class="app-list__info"><strong>Alimentação</strong><em>R$ 640</em></span>
-                  <span class="app-list__bar"><i style="width:45%;background:#E8C468;"></i></span>
-                </div>
-                <div class="app-list__item">
-                  <span class="app-list__icon" style="--bg:#1E2A3D;--fg:#7FA8FF;">🚗</span>
-                  <span class="app-list__info"><strong>Transporte</strong><em>R$ 310</em></span>
-                  <span class="app-list__bar"><i style="width:24%;background:#7FA8FF;"></i></span>
+                <div class="screen-main">
+                  <div class="kpi-row">
+                    <div class="kpi"><div class="lab">Saldo</div><div class="val g">R$ 6.230</div></div>
+                    <div class="kpi"><div class="lab">Economia</div><div class="val g">+18%</div></div>
+                    <div class="kpi"><div class="lab">Metas</div><div class="val">3 ativas</div></div>
+                  </div>
+                  <div class="chart-panel">
+                    <div class="chart-bars">
+                      <i style="height:35%"></i><i style="height:55%"></i><i style="height:40%"></i>
+                      <i style="height:78%"></i><i style="height:50%"></i><i style="height:64%"></i>
+                      <i style="height:44%"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="laptop-base"></div>
           </div>
 
-          <!-- Floating chip -->
-          <div class="float-chip float-chip--save">
-            <span class="float-chip__icon">✓</span>
-            <span>Economia identificada<br><strong>R$ 186 este mês</strong></span>
-          </div>
-          <div class="float-chip float-chip--goal">
-            <span class="float-chip__icon">🎯</span>
-            <span>Meta batida em<br><strong>4 meses</strong></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero__logos" data-reveal>
-      <p>Segurança de nível bancário com</p>
-      <div class="hero__logos-row">
-        <span>Criptografia AES-256</span>
-        <span>Conexão via Open Finance</span>
-        <span>Monitoramento contínuo</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PROBLEMA ================= -->
-  <section class="problem" id="problema">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow eyebrow--muted">O ponto de virada</p>
-        <h2>Você reconhece algum desses momentos?</h2>
-      </div>
-
-      <div class="problem__grid">
-        <article class="problem__card" data-reveal>
-          <span class="problem__mark">01</span>
-          <h3>Seu salário desaparece antes do fim do mês</h3>
-          <p>Você trabalha, recebe, e em poucos dias já não sabe explicar onde o dinheiro foi.</p>
-        </article>
-        <article class="problem__card" data-reveal>
-          <span class="problem__mark">02</span>
-          <h3>Você não sabe exatamente quanto pode gastar</h3>
-          <p>Cada compra vem acompanhada de uma dúvida silenciosa: "isso vai comprometer meu mês?"</p>
-        </article>
-        <article class="problem__card" data-reveal>
-          <span class="problem__mark">03</span>
-          <h3>Seus objetivos ficam sempre para depois</h3>
-          <p>Aquela viagem, a reserva de emergência, o carro novo — os planos existem, mas nunca saem do papel.</p>
-        </article>
-      </div>
-
-      <p class="problem__bridge" data-reveal>
-        O problema nunca foi falta de esforço. <span>Foi falta de clareza.</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= SOLUÇÃO ================= -->
-  <section class="solution" id="solucao">
-    <div class="container solution__inner">
-      <div class="solution__copy" data-reveal>
-        <p class="eyebrow eyebrow--muted">A solução</p>
-        <h2>O Zenvest transforma números soltos em decisões claras.</h2>
-        <p class="solution__lede">
-          Conectamos os pontos entre o que você ganha, o que você gasta e o que você quer
-          conquistar — para que cada real tenha um propósito.
-        </p>
-
-        <ul class="solution__list">
-          <li>
-            <span class="solution__icon">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 18V10M12 18V4M20 18V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </span>
-            <div><strong>Controle de gastos</strong><p>Cada movimentação categorizada automaticamente, sem esforço manual.</p></div>
-          </li>
-          <li>
-            <span class="solution__icon">
-              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </span>
-            <div><strong>Análises financeiras</strong><p>Entenda padrões de consumo e receba alertas antes que o mês aperte.</p></div>
-          </li>
-          <li>
-            <span class="solution__icon">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L14.5 9.5L21 12L14.5 14.5L12 21L9.5 14.5L3 12L9.5 9.5L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            </span>
-            <div><strong>Metas com propósito</strong><p>Transforme desejos em planos com prazo, valor e progresso visível.</p></div>
-          </li>
-          <li>
-            <span class="solution__icon">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <div><strong>Recomendações personalizadas</strong><p>Sugestões práticas, feitas sob medida para sua realidade financeira.</p></div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="solution__visual" data-reveal>
-        <div class="orbit-card orbit-card--1">
-          <span class="orbit-card__label">Gasto médio semanal</span>
-          <span class="orbit-card__value">R$ 412</span>
-        </div>
-        <div class="orbit-card orbit-card--2">
-          <span class="orbit-card__label">Meta: Reserva</span>
-          <span class="orbit-card__value">82%</span>
-        </div>
-        <div class="orbit-card orbit-card--3">
-          <span class="orbit-card__label">Economia do mês</span>
-          <span class="orbit-card__value">+R$ 340</span>
-        </div>
-        <svg class="flow-line flow-line--solution" viewBox="0 0 500 500" aria-hidden="true">
-          <path d="M40,400 C 150,380 180,200 280,180 C 380,160 400,300 460,120" />
-        </svg>
-        <div class="ring-glow" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= DEMONSTRAÇÃO DO APLICATIVO ================= -->
-  <section class="demo" id="demonstracao">
-    <div class="container">
-      <div class="section-head section-head--center" data-reveal>
-        <p class="eyebrow eyebrow--muted">Dentro do aplicativo</p>
-        <h2>Feito para ser entendido em segundos.</h2>
-        <p>Sem planilhas. Sem termos técnicos. Só clareza.</p>
-      </div>
-
-      <div class="demo__tabs" role="tablist" data-reveal>
-        <button class="demo__tab is-active" data-tab="dashboard" role="tab" aria-selected="true">Dashboard</button>
-        <button class="demo__tab" data-tab="graficos" role="tab" aria-selected="false">Gráficos</button>
-        <button class="demo__tab" data-tab="metas" role="tab" aria-selected="false">Metas</button>
-        <button class="demo__tab" data-tab="movimentacoes" role="tab" aria-selected="false">Movimentações</button>
-      </div>
-
-      <div class="demo__stage" data-reveal>
-        <div class="demo__panel is-active" data-panel="dashboard">
-          <div class="demo__frame">
-            <div class="app-topbar"><span>Visão geral</span><span class="app-topbar__icon">●</span></div>
-            <p class="mini-label">Saldo total</p>
-            <p class="app-balance__value app-balance__value--dark">R$ 8.240,00</p>
-            <div class="demo__row">
-              <div class="demo__stat"><em>Entradas</em><strong class="up">R$ 6.200</strong></div>
-              <div class="demo__stat"><em>Saídas</em><strong class="down">R$ 3.720</strong></div>
-              <div class="demo__stat"><em>Guardado</em><strong class="up">R$ 2.480</strong></div>
+          <div class="phone">
+            <div class="phone-body">
+              <div class="phone-notch"></div>
+              <div class="phone-bal">
+                <div class="lab">Saldo total</div>
+                <div class="amt">R$ 12.480<span>,50</span></div>
+              </div>
+              <div class="phone-ring"><b>68%</b></div>
+              <div class="phone-list">
+                <div><i></i><b></b></div>
+                <div><i style="background:var(--green)"></i><b></b></div>
+                <div><i></i><b></b></div>
+              </div>
             </div>
           </div>
-          <p class="demo__caption">Uma visão completa da sua vida financeira, atualizada em tempo real.</p>
-        </div>
 
-        <div class="demo__panel" data-panel="graficos">
-          <div class="demo__frame">
-            <div class="app-topbar"><span>Gastos por categoria</span><span class="app-topbar__icon">●</span></div>
-            <div class="donut-wrap">
-              <svg viewBox="0 0 120 120" class="donut">
-                <circle cx="60" cy="60" r="46" fill="none" stroke="#1C232B" stroke-width="16"/>
-                <circle cx="60" cy="60" r="46" fill="none" stroke="#33E0A6" stroke-width="16" stroke-dasharray="289" stroke-dashoffset="120" stroke-linecap="round" transform="rotate(-90 60 60)"/>
-                <circle cx="60" cy="60" r="46" fill="none" stroke="#E8C468" stroke-width="16" stroke-dasharray="289" stroke-dashoffset="230" stroke-linecap="round" transform="rotate(45 60 60)"/>
-              </svg>
-              <ul class="donut__legend">
-                <li><i style="background:#33E0A6"></i>Moradia — 41%</li>
-                <li><i style="background:#E8C468"></i>Alimentação — 26%</li>
-                <li><i style="background:#1C232B;border:1px solid #333"></i>Outros — 33%</li>
-              </ul>
-            </div>
+          <div class="float-card float-1">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3V21M17 7C17 5 14.7 3.5 12 3.5C9.3 3.5 7 5 7 7.3C7 9.5 9 10.3 12 11C15 11.7 17 12.7 17 15C17 17.3 14.7 18.7 12 18.7C9.3 18.7 7 17.2 7 15.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div class="tx"><b>+ R$ 1.240</b><span>economizados este mês</span></div>
           </div>
-          <p class="demo__caption">Gráficos simples que mostram exatamente para onde seu dinheiro está indo.</p>
-        </div>
-
-        <div class="demo__panel" data-panel="metas">
-          <div class="demo__frame">
-            <div class="app-topbar"><span>Minhas metas</span><span class="app-topbar__icon">●</span></div>
-            <div class="goal-row">
-              <p class="mini-title">Reserva de emergência</p>
-              <div class="mini-progress"><span style="width:82%"></span></div>
-              <p class="mini-value">R$ 8.200 <em>de R$ 10.000</em></p>
-            </div>
-            <div class="goal-row">
-              <p class="mini-title">Viagem para Lisboa</p>
-              <div class="mini-progress"><span style="width:64%"></span></div>
-              <p class="mini-value">R$ 3.840 <em>de R$ 6.000</em></p>
-            </div>
+          <div class="float-card float-2">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/></svg></div>
+            <div class="tx"><b>Meta: Viagem</b><span>68% concluída</span></div>
           </div>
-          <p class="demo__caption">Acompanhe cada objetivo com prazos e valores claros, sempre à vista.</p>
-        </div>
-
-        <div class="demo__panel" data-panel="movimentacoes">
-          <div class="demo__frame">
-            <div class="app-topbar"><span>Movimentações</span><span class="app-topbar__icon">●</span></div>
-            <div class="app-list">
-              <div class="app-list__item"><span class="app-list__icon" style="--bg:#20342C;--fg:#33E0A6;">💳</span><span class="app-list__info"><strong>Supermercado</strong><em>Hoje, 14:20</em></span><span class="app-list__value down">-R$ 186</span></div>
-              <div class="app-list__item"><span class="app-list__icon" style="--bg:#1E2A3D;--fg:#7FA8FF;">💼</span><span class="app-list__info"><strong>Salário</strong><em>Ontem, 09:00</em></span><span class="app-list__value up">+R$ 4.800</span></div>
-              <div class="app-list__item"><span class="app-list__icon" style="--bg:#332A1B;--fg:#E8C468;">☕</span><span class="app-list__info"><strong>Cafeteria</strong><em>Ontem, 08:15</em></span><span class="app-list__value down">-R$ 24</span></div>
-            </div>
-          </div>
-          <p class="demo__caption">Todas as transações organizadas automaticamente, sem lançar nada na mão.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= BENEFÍCIOS ================= -->
+  <!-- VIDEO -->
+  <section class="video-section reveal">
+  <div class="container">
+    <div class="video-frame-wrap">
+      <div class="video-frame">
+        <iframe 
+          src="https://www.youtube.com/embed/j1C7XwPbr1Y?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&disablekb=1&fs=0&iv_load_policy=3"
+          title="Zenvest"
+          frameborder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- BENEFITS -->
   <section class="benefits" id="beneficios">
     <div class="container">
-      <div class="section-head section-head--center" data-reveal>
-        <p class="eyebrow eyebrow--muted">Por que o Zenvest</p>
-        <h2>Menos ansiedade com dinheiro. Mais decisões com confiança.</h2>
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Por que Zenvest</span>
+        <h2>Tudo que sua vida financeira precisa, num só lugar</h2>
       </div>
-
-      <div class="benefits__grid">
-        <article class="benefit-card" data-reveal>
-          <span class="benefit-card__icon">🧭</span>
-          <h3>Controle total do dinheiro</h3>
-          <p>Saiba exatamente quanto entra, quanto sai e quanto sobra — sem surpresas no fim do mês.</p>
-        </article>
-        <article class="benefit-card" data-reveal>
-          <span class="benefit-card__icon">🔍</span>
-          <h3>Saiba onde está gastando</h3>
-          <p>Categorização automática revela padrões que passam despercebidos no dia a dia.</p>
-        </article>
-        <article class="benefit-card" data-reveal>
-          <span class="benefit-card__icon">🎯</span>
-          <h3>Objetivos com progresso real</h3>
-          <p>Crie metas e acompanhe cada passo até alcançá-las, com prazos realistas.</p>
-        </article>
-        <article class="benefit-card" data-reveal>
-          <span class="benefit-card__icon">💡</span>
-          <h3>Oportunidades de economia</h3>
-          <p>O Zenvest identifica gastos que podem ser reduzidos sem cortar o que importa.</p>
-        </article>
-        <article class="benefit-card" data-reveal>
-          <span class="benefit-card__icon">☀️</span>
-          <h3>Clareza todos os dias</h3>
-          <p>Um resumo simples da sua situação financeira, sempre que você precisar.</p>
-        </article>
-        <article class="benefit-card" data-reveal>
-          <span class="benefit-card__icon">🔒</span>
+      <div class="benefits-grid">
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12H15M15 12L11 8M15 12L11 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4H20V20H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3>Gastos organizados sozinhos</h3>
+          <p>Suas despesas são categorizadas automaticamente, sem planilhas.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/></svg></div>
+          <h3>Metas que saem do papel</h3>
+          <p>Defina objetivos reais e acompanhe cada passo até alcançá-los.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L19 6.5V11C19 15.5 16 19 12 20.5C8 19 5 15.5 5 11V6.5L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <h3>Reserva de emergência</h3>
+          <p>Construa sua segurança financeira de forma simples e constante.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19H20M6 19V11M12 19V6M18 19V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Veja para onde vai seu dinheiro</h3>
+          <p>Visualize cada categoria de forma clara, sem esforço.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7H20M4 7V17C4 18.1 4.9 19 6 19H18C19.1 19 20 18.1 20 17V7M4 7L6 4H18L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Categorias inteligentes</h3>
+          <p>O app aprende seus hábitos e refina as categorias com o tempo.</p>
+        </div>
+        <div class="b-card reveal">
+          <div class="b-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L19 6V11C19 15.5 16 19 12 20.5C8 19 5 15.5 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 12L11.3 13.8L14.8 10.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <h3>Segurança de verdade</h3>
-          <p>Seus dados protegidos com criptografia de ponta a ponta, sempre.</p>
-        </article>
+          <p>Criptografia de ponta a ponta em cada informação do seu app.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= COMO FUNCIONA ================= -->
+  <!-- DASHBOARD / APP SHOWCASE -->
+  <section class="app-showcase" id="app">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Dentro do app</span>
+        <h2>Um painel completo da sua vida financeira</h2>
+        <p>Dashboard, metas, categorias e reserva — tudo integrado e fácil de entender.</p>
+      </div>
+
+      <div class="screens-grid">
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Dashboard</span></div>
+          <div class="sc-body mock-dash">
+            <div class="kpi-row">
+              <div class="kpi"><div class="lab">Saldo</div><div class="val g">R$ 6.230</div></div>
+              <div class="kpi"><div class="lab">Gasto</div><div class="val">R$ 2.140</div></div>
+            </div>
+            <div class="chart-panel" style="height:70px;">
+              <div class="chart-bars"><i style="height:40%"></i><i style="height:60%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:52%"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Metas</span></div>
+          <div class="sc-body mock-goals">
+            <div class="goal-item"><div class="goal-ring" style="--p:72%"><b></b></div><div class="gt"><b>Viagem à praia</b><span>72% concluída</span></div></div>
+            <div class="goal-item"><div class="goal-ring" style="--p:40%"><b></b></div><div class="gt"><b>Notebook novo</b><span>40% concluída</span></div></div>
+            <div class="goal-item"><div class="goal-ring" style="--p:90%"><b></b></div><div class="gt"><b>Curso online</b><span>90% concluída</span></div></div>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Categorias</span></div>
+          <div class="sc-body mock-cat">
+            <div class="cat-row"><div class="cat-dot" style="background:var(--blue-light)"></div><div class="cbar"><i style="width:70%;background:var(--blue-light)"></i></div><span>35%</span></div>
+            <div class="cat-row"><div class="cat-dot" style="background:var(--green)"></div><div class="cbar"><i style="width:45%;background:var(--green)"></i></div><span>22%</span></div>
+            <div class="cat-row"><div class="cat-dot" style="background:#7d5cff"></div><div class="cbar"><i style="width:55%;background:#7d5cff"></i></div><span>28%</span></div>
+            <div class="cat-row"><div class="cat-dot" style="background:#ff8a4c"></div><div class="cbar"><i style="width:25%;background:#ff8a4c"></i></div><span>15%</span></div>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Movimentações</span></div>
+          <div class="sc-body mock-moves">
+            <div class="move-row"><div class="move-ic"></div><div class="mt"><b>Supermercado</b><span>Hoje</span></div><div class="mv neg">-R$180</div></div>
+            <div class="move-row"><div class="move-ic"></div><div class="mt"><b>Salário</b><span>Ontem</span></div><div class="mv pos">+R$3.200</div></div>
+            <div class="move-row"><div class="move-ic"></div><div class="mt"><b>Assinatura</b><span>2 dias atrás</span></div><div class="mv neg">-R$39</div></div>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Reserva de emergência</span></div>
+          <div class="sc-body mock-reserve">
+            <div class="reserve-ring"><b>62%</b></div>
+            <span>R$ 6.200 de R$ 10.000</span>
+          </div>
+        </div>
+
+        <div class="screen-card reveal">
+          <div class="sc-head"><span class="dotc"></span><span>Perfil</span></div>
+          <div class="sc-body mock-profile">
+            <div class="avatar-circ"><svg viewBox="0 0 24 24" fill="none" style="width:46%;height:46%"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
+            <div class="pname">Ana Ferreira</div>
+            <div class="ptag">Plano Vitalício</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
   <section class="how" id="como-funciona">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow eyebrow--muted">Como funciona</p>
-        <h2>Três passos até a clareza financeira.</h2>
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Simples assim</span>
+        <h2>Do caos financeiro à clareza total</h2>
       </div>
-
-      <div class="how__steps">
-        <div class="how__step" data-reveal>
-          <span class="how__num">1</span>
-          <h3>Informe sua situação financeira</h3>
-          <p>Conte ao Zenvest sua renda e seus principais compromissos para montarmos seu ponto de partida.</p>
+      <div class="how-steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Crie sua conta</h3>
+          <p>Cadastro rápido, sem burocracia. Comece em menos de 2 minutos.</p>
         </div>
-        <div class="how__connector" aria-hidden="true"></div>
-        <div class="how__step" data-reveal>
-          <span class="how__num">2</span>
-          <h3>Registre seus gastos e acompanhe</h3>
-          <p>Suas movimentações são organizadas automaticamente, prontas para você entender em segundos.</p>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Organize suas finanças</h3>
+          <p>O app organiza seus gastos e mostra exatamente para onde vai seu dinheiro.</p>
         </div>
-        <div class="how__connector" aria-hidden="true"></div>
-        <div class="how__step" data-reveal>
-          <span class="how__num">3</span>
-          <h3>Receba análises e organize objetivos</h3>
-          <p>Transforme os insights em metas concretas e acompanhe sua evolução mês a mês.</p>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Alcance seus objetivos</h3>
+          <p>Acompanhe metas, construa sua reserva e evolua com clareza.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= PROVA SOCIAL ================= -->
-  <section class="social" id="depoimentos">
+  <!-- STATS -->
+  <section class="stats reveal">
     <div class="container">
-      <div class="section-head section-head--center" data-reveal>
-        <p class="eyebrow eyebrow--muted">Quem usa, recomenda</p>
-        <h2>Pessoas reais, resultados reais.</h2>
-        <div class="rating-summary">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <strong>4,9</strong> de 5 · <span>mais de 38.000 usuários ativos</span>
-        </div>
+      <div>
+        <div class="stat-num" data-count="8284">0</div>
+        <div class="stat-lab">Usuários organizando sua vida financeira</div>
       </div>
-
-      <div class="testimonials" data-reveal>
-        <article class="testimonial-card">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>"Depois de usar o Zenvest finalmente consegui entender onde meu dinheiro estava indo. Em dois meses já tinha economizado para minha reserva."</p>
-          <div class="testimonial-card__author">
-            <span class="avatar" style="--c1:#33E0A6;--c2:#1B8F63;">MF</span>
-            <div><strong>Marina F.</strong><em>Designer, São Paulo</em></div>
-          </div>
-        </article>
-        <article class="testimonial-card">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>"Antes eu não sabia controlar meus gastos. Agora consigo acompanhar tudo em poucos minutos por dia, direto do celular."</p>
-          <div class="testimonial-card__author">
-            <span class="avatar" style="--c1:#7FA8FF;--c2:#3E5FC4;">JA</span>
-            <div><strong>João A.</strong><em>Analista, Belo Horizonte</em></div>
-          </div>
-        </article>
-        <article class="testimonial-card">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>"O plano vitalício foi a melhor decisão financeira que tomei esse ano. Uso todos os dias e já bati duas metas."</p>
-          <div class="testimonial-card__author">
-            <span class="avatar" style="--c1:#E8C468;--c2:#B4813C;">RS</span>
-            <div><strong>Rafaela S.</strong><em>Empreendedora, Curitiba</em></div>
-          </div>
-        </article>
-        <article class="testimonial-card">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>"É simples de entender mesmo sem saber nada de finanças. As metas me ajudaram a organizar a viagem que eu adiava há anos."</p>
-          <div class="testimonial-card__author">
-            <span class="avatar" style="--c1:#FF9C7F;--c2:#C4593E;">LP</span>
-            <div><strong>Lucas P.</strong><em>Professor, Recife</em></div>
-          </div>
-        </article>
+      <div>
+        <div class="stat-num" data-count="30">0</div>
+        <div class="stat-lab">Dias de garantia incondicional</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="4" data-suffix=".9★">0</div>
+        <div class="stat-lab">Avaliação média dos usuários</div>
       </div>
     </div>
   </section>
 
-  <!-- ================= PLANOS ================= -->
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="depoimentos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Quem usa, recomenda</span>
+        <h2>Pessoas reais, resultados reais</h2>
+      </div>
+    </div>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marqueeTrack">
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#4d7dff,#1638a3)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Mariana Souza</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Em dois meses consegui economizar mais do que em todo o ano anterior. Finalmente entendo para onde vai meu dinheiro.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#3fe3a6,#0d9e6c)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Rafael Costa</div><div class="t-stars">★★★★★</div></div></div>
+          <p>O app é simples e direto. Criei minha reserva de emergência sem esforço, só seguindo as metas.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#9c85ff,#5a3ccf)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Juliana Alves</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Testei vários apps de finanças antes. O Zenvest é o único que realmente uso todos os dias.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#ffab6e,#e2661a)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Carlos Mendes</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Visualizar meus gastos por categoria mudou completamente como eu penso em dinheiro.</p>
+        </div>
+        <!-- duplicate for seamless loop -->
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#4d7dff,#1638a3)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Mariana Souza</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Em dois meses consegui economizar mais do que em todo o ano anterior. Finalmente entendo para onde vai meu dinheiro.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#3fe3a6,#0d9e6c)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Rafael Costa</div><div class="t-stars">★★★★★</div></div></div>
+          <p>O app é simples e direto. Criei minha reserva de emergência sem esforço, só seguindo as metas.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#9c85ff,#5a3ccf)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Juliana Alves</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Testei vários apps de finanças antes. O Zenvest é o único que realmente uso todos os dias.</p>
+        </div>
+        <div class="t-card">
+          <div class="t-head"><div class="t-avatar" style="background:linear-gradient(135deg,#ffab6e,#e2661a)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.3" fill="#fff" fill-opacity=".95"/><path d="M5 19.2c0-3.6 3.2-6 7-6s7 2.4 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div><div><div class="t-name">Carlos Mendes</div><div class="t-stars">★★★★★</div></div></div>
+          <p>Visualizar meus gastos por categoria mudou completamente como eu penso em dinheiro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
   <section class="pricing" id="planos">
     <div class="container">
-      <div class="section-head section-head--center" data-reveal>
-        <p class="eyebrow eyebrow--muted">Planos</p>
-        <h2>Escolha como quer construir sua clareza financeira.</h2>
-        <p>Escolha o plano ideal e garanta acesso completo ao Zenvest.</p>
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Planos</span>
+        <h2>Escolha como quer transformar sua vida financeira</h2>
       </div>
-
-      <div class="pricing__grid" data-reveal>
-        <!-- MENSAL -->
-        <article class="plan-card">
-          <div class="plan-card__head">
-            <h3>Mensal</h3>
-            <p>Flexível, mês a mês.</p>
-          </div>
-          <p class="plan-card__price"><span>R$</span>29,90<em>/mês</em></p>
-          <ul class="plan-card__list">
-            <li>Acesso completo ao Zenvest</li>
-            <li>Controle financeiro automático</li>
-            <li>Análises e relatórios</li>
-            <li>Metas ilimitadas</li>
-            <li>Recomendações personalizadas</li>
+      <div class="plans-grid">
+        <div class="plan reveal">
+          <div class="p-name">Mensal</div>
+          <div class="p-price"><span class="cur">R$</span><span class="num">29,90</span></div>
+          <div class="p-cycle">cobrado todo mês</div>
+          <ul class="p-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Controle de gastos completo</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Metas ilimitadas</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Reserva de emergência</li>
           </ul>
-          <a href="https://pay.cakto.com.br/hns6tdi_540424" class="btn btn--outline btn--block">Começar minha transformação financeira</a>
-        </article>
+          <a href="https://pay.cakto.com.br/hns6tdi_540424" class="btn btn-ghost btn-block">Assinar mensal</a>
+        </div>
 
-        <!-- TRIMESTRAL -->
-        <article class="plan-card plan-card--highlight-secondary">
-          <span class="plan-card__badge plan-card__badge--secondary">Economize 18%</span>
-          <div class="plan-card__head">
-            <h3>Trimestral</h3>
-            <p>Pagamento a cada 3 meses.</p>
-          </div>
-          <p class="plan-card__price"><span>R$</span>69,90<em>/3 meses</em></p>
-          <p class="plan-card__equiv">Equivale a R$ 23,30/mês</p>
-          <ul class="plan-card__list">
-            <li>Tudo do plano Mensal</li>
-            <li>18% de economia garantida</li>
-            <li>Prioridade em novidades</li>
-            <li>Metas ilimitadas</li>
-            <li>Recomendações personalizadas</li>
+        <div class="plan featured reveal">
+          <div class="badge">⭐ MAIS VENDIDO</div>
+          <div class="p-name">Vitalício</div>
+          <div class="p-price"><span class="cur">R$</span><span class="num">197,00</span></div>
+          <div class="p-cycle">pagamento único · acesso para sempre</div>
+          <ul class="p-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do plano mensal</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem mensalidades, nunca mais</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Atualizações vitalícias grátis</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Suporte prioritário</li>
           </ul>
-          <a href="https://pay.cakto.com.br/3bsto26" class="btn btn--outline btn--block">Começar minha transformação financeira</a>
-        </article>
+          <a href="https://pay.cakto.com.br/qnnsc36" class="btn btn-primary btn-block">Quero acesso vitalício</a>
+        </div>
 
-        <!-- VITALÍCIO -->
-        <article class="plan-card plan-card--featured">
-          <span class="plan-card__badge">⭐ Mais vendido — Melhor escolha</span>
-          <div class="plan-card__head">
-            <h3>Vitalício</h3>
-            <p>Pagamento único. Acesso para sempre.</p>
-          </div>
-          <p class="plan-card__price"><span>R$</span>197<em>pagamento único</em></p>
-          <div class="plan-card__compare">
-            <p><s>12 meses no plano mensal: R$ 358,80</s></p>
-            <p class="plan-card__save">Com o Vitalício você paga só R$ 197 — uma vez.</p>
-          </div>
-          <ul class="plan-card__list">
-            <li>Acesso para sempre, sem mensalidades</li>
-            <li>Todas as funcionalidades do Zenvest</li>
-            <li>Todas as atualizações futuras incluídas</li>
-            <li>Metas e análises ilimitadas</li>
-            <li>Suporte prioritário</li>
+        <div class="plan reveal">
+          <div class="p-name">Trimestral</div>
+          <div class="p-price"><span class="cur">R$</span><span class="num">69,90</span></div>
+          <div class="p-cycle">a cada 3 meses</div>
+          <ul class="p-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do plano mensal</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Economize a cada renovação</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem fidelidade</li>
           </ul>
-          <a href="https://pay.cakto.com.br/qnnsc36" class="btn btn--gold btn--block">Começar minha transformação financeira</a>
-        </article>
-      </div>
-
-      <p class="pricing__footnote" data-reveal>Pagamento 100% seguro · Acesso liberado imediatamente após a confirmação</p>
-    </div>
-  </section>
-
-  <!-- ================= FAQ ================= -->
-  <section class="faq" id="faq">
-    <div class="container faq__inner">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow eyebrow--muted">Perguntas frequentes</p>
-        <h2>Tudo o que você precisa saber.</h2>
-      </div>
-
-      <div class="accordion" data-reveal>
-        <div class="accordion__item is-open">
-          <button class="accordion__trigger" aria-expanded="true">
-            Preciso entender de finanças para usar?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Não. O Zenvest foi criado para pessoas comuns, sem nenhum conhecimento técnico. A linguagem é simples e as telas foram pensadas para que qualquer pessoa entenda seus números em segundos.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false">
-            O Zenvest serve para iniciantes?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Sim, principalmente. A maioria das pessoas que usam o Zenvest nunca tinha controlado as finanças antes. O aplicativo guia você passo a passo, desde o primeiro dia.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false">
-            Meus dados estão seguros?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Sim. Usamos criptografia de nível bancário e nunca compartilhamos suas informações com terceiros. A segurança dos seus dados é prioridade em cada decisão que tomamos.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false">
-            Como funciona o acesso?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Após escolher seu plano, você recebe acesso imediato ao aplicativo Zenvest, disponível para uso em qualquer dispositivo conectado à internet.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false">
-            Posso usar pelo celular?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Sim. O Zenvest foi desenhado primeiro para o celular, para que você acompanhe suas finanças de onde estiver, a qualquer momento.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false">
-            Existe mensalidade?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Depende do plano escolhido. Os planos Mensal e Semestral são assinaturas com cobrança recorrente, feita automaticamente no período contratado. O plano Vitalício é pago uma única vez e não gera nenhuma cobrança recorrente.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false">
-            Como funciona o plano vitalício?
-            <span class="accordion__icon"></span>
-          </button>
-          <div class="accordion__panel">
-            <p>Você paga uma única vez e garante acesso ao Zenvest para sempre, incluindo todas as atualizações e funcionalidades futuras — sem nenhuma cobrança adicional.</p>
-          </div>
+          <a href="https://pay.cakto.com.br/3bsto26" class="btn btn-blue-outline btn-block">Assinar trimestral</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= CTA FINAL ================= -->
+  <!-- GUARANTEE -->
+  <section class="guarantee">
+    <div class="container">
+      <div class="g-box reveal">
+        <div class="g-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L19 6V11C19 15.5 16 19 12 20.5C8 19 5 15.5 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12L11 14L15.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3>Garantia incondicional de 30 dias</h3>
+          <p>Se por qualquer motivo o Zenvest não fizer sentido para você, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
   <section class="final-cta">
-    <div class="final-cta__glow" aria-hidden="true"></div>
-    <div class="container final-cta__inner" data-reveal>
-      <h2>Comece hoje a construir uma relação melhor com seu dinheiro.</h2>
-      <p>Clareza, controle e progresso — a partir de hoje.</p>
-      <a href="#planos" class="btn btn--primary btn--lg">
-        Começar minha transformação financeira
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9H14M14 9L9.5 4.5M14 9L9.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="container">
+      <h2 class="reveal">Sua vida financeira organizada começa agora.</h2>
+      <p class="reveal">Junte-se a mais de 8 mil pessoas que já assumiram o controle do próprio dinheiro.</p>
+      <a href="#planos" class="btn btn-primary reveal">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Quero começar agora
       </a>
     </div>
   </section>
 
 </main>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-  <div class="container footer__inner">
-    <div class="footer__brand">
-      <a href="#top" class="logo">
-        <span class="logo__mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 20L12 12L18 17L28 6" stroke="url(#logoGradFooter)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 6H28V13" stroke="url(#logoGradFooter)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <defs>
-              <linearGradient id="logoGradFooter" x1="4" y1="6" x2="28" y2="20" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#33E0A6"/><stop offset="1" stop-color="#8FF6D3"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </span>
-        <span class="logo__text">Zenvest</span>
-      </a>
-      <p>Clareza financeira, todos os dias.</p>
-    </div>
-
-    <nav class="footer__col" aria-label="Produto">
-      <h4>Produto</h4>
-      <a href="#solucao">Como funciona</a>
-      <a href="#demonstracao">Aplicativo</a>
-      <a href="#planos">Planos</a>
-    </nav>
-
-    <nav class="footer__col" aria-label="Empresa">
-      <h4>Empresa</h4>
-      <a href="#">Sobre</a>
-      <a href="#">Carreiras</a>
-      <a href="#">Imprensa</a>
-    </nav>
-
-    <nav class="footer__col" aria-label="Legal">
-      <h4>Legal</h4>
-      <a href="#">Termos de uso</a>
-      <a href="#">Política de privacidade</a>
-      <a href="#">Contato</a>
-    </nav>
-
-    <div class="footer__col footer__col--social">
-      <h4>Redes sociais</h4>
-      <div class="social-icons">
-        <a href="#" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-        </a>
-        <a href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V17M8 7V7.01M12 17V13C12 11.5 13 10.5 14.5 10.5C16 10.5 17 11.5 17 13V17M12 10.5V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </a>
-        <a href="#" aria-label="X / Twitter">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 4L20 20M20 4L4 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </a>
+<footer>
+  <div class="container">
+    <div class="brand" style="font-size:16px;">
+      <div class="brand-mark" style="width:26px;height:26px;">
+        <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;"><path d="M4 17L10 11L14 15L20 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H20V12" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
+      Zenvest
     </div>
-  </div>
-
-  <div class="container footer__bottom">
-    <p>© 2026 Zenvest. Todos os direitos reservados.</p>
-    <p>CNPJ 40.384.380/0001-46 · Feito com clareza no Brasil.</p>
+    <div class="f-links">
+      <a href="#planos">Planos</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#">Termos de uso</a>
+      <a href="#">Privacidade</a>
+    </div>
+    <div class="f-copy">© 2026 Zenvest. Todos os direitos reservados.</div>
   </div>
 </footer>
 
-<!-- Botão flutuante mobile -->
-<a href="#planos" class="sticky-cta">Começar minha transformação financeira</a>
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
 
-<script src="script.js"></script>
+  // Counter animation
+  const counters = document.querySelectorAll('.stat-num');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1600;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.floor(eased * target).toLocaleString('pt-BR') + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterIO.observe(el));
+
+  // Subtle parallax on hero device stage
+  const stage = document.getElementById('deviceStage');
+  if (stage && window.matchMedia('(pointer:fine)').matches) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const rect = stage.getBoundingClientRect();
+      const relX = (e.clientX - rect.left - rect.width/2) / rect.width;
+      const relY = (e.clientY - rect.top - rect.height/2) / rect.height;
+      stage.style.transform = `rotateY(${relX*4}deg) rotateX(${-relY*4}deg)`;
+    });
+    document.querySelector('.hero').addEventListener('mouseleave', () => {
+      stage.style.transform = 'rotateY(0) rotateX(0)';
+    });
+  }
+</script>
+
 </body>
 </html>
