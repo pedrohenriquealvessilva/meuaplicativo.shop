@@ -473,8 +473,8 @@
         <div class="page-header">
           <div class="eyebrow">Painel</div>
           <!-- EDITAR AQUI: título da home -->
-          <h1 class="page-title">Bem-vindo à sua área de membros</h1>
-          <p class="page-sub">Acompanhe seu progresso, acesse as aulas e fique por dentro das novidades do Zenvest.</p>
+          <h1 class="page-title">Bem-vindo ao Zenves</h1>
+          <p class="page-sub">Acesse conteúdos, novidades e tudo o que você precisa para aproveitar melhor sua experiência na plataforma.</p>
         </div>
 
         <div class="grid" id="homeGrid"></div>
@@ -495,7 +495,7 @@
         <div class="page-header">
           <div class="eyebrow">Recursos</div>
           <h1 class="page-title">Links</h1>
-          <p class="page-sub">Todos os canais oficiais e materiais do Zenvest em um só lugar.</p>
+          <p class="page-sub">Encontre todos os canais oficiais, suporte e conteúdos do Zenvest em um só lugar.</p>
         </div>
         <div class="grid" id="linksGrid"></div>
       </section>
@@ -505,7 +505,7 @@
         <div class="page-header">
           <div class="eyebrow">Ajuda</div>
           <h1 class="page-title">Suporte</h1>
-          <p class="page-sub">Nosso time está pronto para te ajudar. Escolha o canal que preferir.</p>
+          <p class="page-sub">Precisa de ajuda? Nossa equipe está pronta para auxiliar você com dúvidas sobre o Zenvest. Escolha o canal que preferir.</p>
         </div>
         <div class="grid" id="supportGrid"></div>
       </section>
@@ -566,27 +566,27 @@ const NAV_ITEMS = [
 const HOME_CARDS = [
   {
     icon: ICONS.continue, title:'Continue aprendendo',
-    text:'Retome de onde parou. Você concluiu 2 de 6 aulas do curso.',
+    text:'Conclua todas as aulas e descubra como aproveitar todos os recursos do Zenvest da melhor forma.',
     progress: 33, linkLabel:'Ir para a aula', goto:'aulas'
   },
   {
     icon: ICONS.bell, title:'Últimas atualizações',
-    text:'Nova aula liberada no Módulo 2 e material de apoio atualizado.',
+    text:'Confira novidades, melhorias e novos conteúdos adicionados ao Zenvest.',
     linkLabel:'Ver novidades', goto:'aulas'
   },
   {
     icon: ICONS.bolt, title:'Acesso rápido',
-    text:'Grupo do WhatsApp, comunidade e materiais reunidos em um só lugar.',
+    text:'Encontre o suporte, comunidade e materiais importantes para aproveitar melhor o Zenvest.',
     linkLabel:'Ver links', goto:'links'
   },
   {
     icon: ICONS.users, title:'Comunidade',
-    text:'Troque experiências com outros membros e tire dúvidas em tempo real.',
+    text:'Faça parte da comunidade Zenvest, compartilhe experiências e acompanhe dicas de organização financeira.',
     linkLabel:'Entrar na comunidade', goto:'links'
   },
   {
     icon: ICONS.help, title:'Suporte',
-    text:'Precisa de ajuda? Nosso time responde em até 24 horas úteis.',
+    text:'Precisa de ajuda? Nossa equipe está disponível para auxiliar você com dúvidas sobre o aplicativo.',
     linkLabel:'Falar com o suporte', goto:'suporte'
   },
 ];
@@ -597,7 +597,7 @@ const HOME_CARDS = [
    ============================================================ */
 const MODULES = [
   {
-    title:'Módulo 1 — Fundamentos',
+    title:'Módulo 1 — Configuração e organização',
     lessons:[
       { num:'01', title:'Começando no Zenvest', desc:'Aprenda como acessar o Zenvest e deixar o aplicativo pronto para usar no seu celular.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
       { num:'02', title:'Configuração da conta', desc:'Veja como acessar o aplicativo e configurar sua conta para começar a organizar suas finanças.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
@@ -605,7 +605,7 @@ const MODULES = [
     ]
   },
   {
-    title:'Módulo 2 — Estratégia',
+    title:'Módulo 2 — Recursos e evolução',
     lessons:[
       { num:'04', title:'Conhecendo recursosa', desc:'Explore as principais ferramentas do Zenvest e descubra como aproveitar melhor o aplicativo.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
       { num:'05', title:'Criando metas', desc:'Aprenda a criar objetivos financeiros e acompanhar sua evolução dentro do aplicativo.', videoId:'dQw4w9WgXcQ' }, // ALTERAR VÍDEO AQUI
@@ -618,21 +618,21 @@ const MODULES = [
    EDITAR AQUI — LINKS
    ============================================================ */
 const LINKS = [
-  { icon: ICONS.whatsapp, title:'Grupo do WhatsApp', text:'Entre no grupo oficial para avisos e conteúdos exclusivos.', label:'Acessar grupo', url:'https://wa.me/5500000000000' },
-  { icon: ICONS.users, title:'Comunidade', text:'Participe das discussões e conecte-se com outros membros.', label:'Entrar na comunidade', url:'https://exemplo.com/comunidade' },
-  { icon: ICONS.insta, title:'Instagram', text:'Acompanhe bastidores, dicas rápidas e novidades do Zenvest.', label:'Seguir no Instagram', url:'https://instagram.com/zenvest' },
-  { icon: ICONS.globe, title:'Site oficial', text:'Conheça mais sobre o Zenvest e nossos produtos.', label:'Visitar site', url:'https://zenvest.exemplo.com' },
-  { icon: ICONS.doc, title:'Materiais', text:'Baixe planilhas, e-books e materiais de apoio do curso.', label:'Ver materiais', url:'https://exemplo.com/materiais' },
+  { icon: ICONS.whatsapp, title:'Grupo do WhatsApp', text:'Receba avisos, atualizações e novidades importantes sobre o Zenvest.', label:'Acessar grupo', url:'https://wa.me/5500000000000' },
+  { icon: ICONS.users, title:'Comunidade', text:'Conecte-se com outros usuários, compartilhe experiências e tire dúvidas.', label:'Entrar na comunidade', url:'https://exemplo.com/comunidade' },
+  { icon: ICONS.insta, title:'Instagram', text:'Acompanhe dicas de organização financeira, novidades e conteúdos do Zenvest.', label:'Seguir no Instagram', url:'https://instagram.com/zenvest.app' },
+  { icon: ICONS.globe, title:'Site oficial', text:'Conheça mais sobre o Zenvest e acompanhe todas as novidades da plataforma.', label:'Visitar site', url:'https://zenvest.exemplo.com' },
+  { icon: ICONS.doc, title:'Aplicativo Zenvest', text:'Acesse o Zenvest diretamente pelo seu celular e organize suas finanças de forma simples e prática.', label:'Acessar aplicativo', url:'https://app.meuaplicativo.shop/login' },
 ];
 
 /* ============================================================
    EDITAR AQUI — SUPORTE
    ============================================================ */
 const SUPPORT = [
-  { icon: ICONS.whatsapp, title:'WhatsApp', text:'Fale diretamente com nosso time de suporte pelo WhatsApp.', label:'Chamar no WhatsApp', url:'https://wa.me/5500000000000' },
-  { icon: ICONS.mail, title:'E-mail', text:'Envie sua dúvida e responderemos em até 24 horas úteis.', label:'Enviar e-mail', url:'mailto:suporte@zenvest.exemplo.com' },
-  { icon: ICONS.insta, title:'Instagram', text:'Envie uma mensagem direta pelo nosso perfil oficial.', label:'Chamar no Instagram', url:'https://instagram.com/zenvest' },
-  { icon: ICONS.users, title:'Grupo da comunidade', text:'Tire dúvidas com outros membros e com nossa equipe.', label:'Acessar grupo', url:'https://exemplo.com/comunidade' },
+  { icon: ICONS.whatsapp, title:'WhatsApp', text:'Fale diretamente com nossa equipe de suporte pelo WhatsApp.', label:'Chamar no WhatsApp', url:'https://wa.me/5500000000000' },
+  { icon: ICONS.mail, title:'E-mail', text:'Envie sua dúvida e nossa equipe responderá o mais breve possível.', label:'Enviar e-mail', url:'mailto:suporte@zenvest.exemplo.com' },
+  { icon: ICONS.insta, title:'Instagram', text:'Acompanhe novidades do Zenvest e envie uma mensagem pelo nosso perfil oficial.', label:'Chamar no Instagram', url:'https://instagram.com/zenvest.app' },
+  { icon: ICONS.users, title:'Comunidade', text:'Participe da comunidade Zenvest, troque experiências e converse com outros usuários.', label:'Acessar grupo', url:'https://exemplo.com/comunidade' },
 ];
 
 /* ============================================================
